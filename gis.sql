@@ -184,7 +184,7 @@ ALTER TABLE `consultas`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+  ADD UNIQUE KEY `failed_jobs_uuid` (`uuid`);
 
 --
 -- Índices para tabela `migrations`

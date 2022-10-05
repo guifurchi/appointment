@@ -54,13 +54,13 @@ class userController extends Controller
 
     public function create(UserRequest $request)
     {
-        if($this->valid->validation()){
 
             //verificar se a email já foi cadastrada no sistema
             $users = DB::table('users')->where('email', $_POST['email'])->first();
             $level = DB::table('nivel')->get();
 
             if(!isset($users)){
+                echo 'pode inserir';
                 $user = $this->user;
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
@@ -76,9 +76,6 @@ class userController extends Controller
                 ]);
             }
 
-        }else{
-            return $this->valid->redirectToLogin();
-        }
 
     }
 
