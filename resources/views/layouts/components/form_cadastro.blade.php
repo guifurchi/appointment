@@ -16,9 +16,6 @@
             <div class="col mt-2">
                 <input value="@if(isset($user)){{$user->email}}@endif" name="email" type="text" placeholder="email" class="form-control" required>
             </div>
-            <div class="col mt-2">
-                <input hidden value="user" name="nivel" type="text" placeholder="nivel" class="form-control">
-            </div>
             @if (!isset($user))
             <div class="col mt-2">
                 <input value="@if(isset($user)){{$user->password}}@endif" name="password" type="password" placeholder="Senha" class="form-control" required>

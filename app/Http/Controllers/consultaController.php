@@ -147,4 +147,54 @@ class consultaController extends Controller
             return $this->auth->redirectToLogin();
         }
     }
+
+    public function appointments(ConsultaRequest $request = null)
+    {
+            return view('appointments');
+    }
+
+    public function appointmentConfig(ConsultaRequest $request = null)
+    {
+            return view('appointmentConfig');
+    }
+
+    public function appointmentList(ConsultaRequest $request = null)
+    {
+            return view('appointmentList');
+    }
+
+    public function appointmentLink(ConsultaRequest $request = null)
+    {
+            return view('appointmentLink');
+    }
+
+    public function appointmentCalendar(ConsultaRequest $request = null)
+    {
+            return view('appointmentCalendar');
+    }
+
+    public function appointmentAdd(ConsultaRequest $request = null)
+    {
+            return view('appointmentAdd');
+    }
+    
+    public function appointmentConfirm(ConsultaRequest $request = null)
+    {
+            return view('appointmentConfirm');
+    }
+
+    public function appointmentConfigHoliday(ConsultaRequest $request = null)
+    {
+            return view('appointmentConfigHoliday');
+    }
+
+    public function services(ConsultaRequest $request = null)
+    {
+            return view('services');
+    }
+
+    public function serviceAdd(ConsultaRequest $request = null)
+    {
+            return view('serviceAdd');
+    }
 }

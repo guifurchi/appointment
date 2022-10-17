@@ -76,8 +76,8 @@ class authController extends Controller
                 
             //descrever quais as rotas podem ser acessadas por cada nível de usuário
             $validNivel = array(
-                'admin' => ['/password','/mainPage','/consulta','/consultaQuery','/usuarios','/cadastrar',"/showUser",'/showDetails'],  
-                'user' => ['/mainPage','/consulta','/Query','/showDetails','/password','/consultaQuery']  
+                'admin' => ['/appointment','/password','/mainPage','/consulta','/consultaQuery','/usuarios','/cadastrar',"/showUser",'/showDetails'],  
+                'user' => ['/appointment','/mainPage','/consulta','/Query','/showDetails','/password','/consultaQuery']  
             );
             //extrai dois niveis do array associativo para criar o objeto
             $this->validN = false;

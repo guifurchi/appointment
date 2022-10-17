@@ -19,12 +19,6 @@
                     <input name="nome" value='@if(isset($consulta)){{ $consulta->nome }}@else{{ $user->name }}@endif' id="nome" class="form-control" type="text" placeholder="Nome Completo" aria-label="default input example" required readOnly>
                 </div>
                 <div class="col mb-2">
-                    <input name="telefone" value='@if(isset($consulta)){{ $consulta->telefone }}@endif' id="telefone" class="form-control" type="text" placeholder="telefone com DDD" aria-label="default input example" required>
-                </div>
-                <div class="col mb-2">
-                    <input name="endereco" value='@if(isset($consulta)){{ $consulta->endereco }}@endif' id="endereco" class="form-control" type="text" placeholder="Endereço" aria-label="default input example" required >
-                </div>
-                <div class="col mb-2">
                     <input name="data_consulta" value='@if(isset($consulta)){{ $consulta->data_consulta }}@endif' id="data_consulta" class="form-control" type="text" placeholder="Escolha uma data" aria-label="default input example" required >
                 </div>
             <div class="col mb-2">

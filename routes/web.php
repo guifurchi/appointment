@@ -56,3 +56,16 @@ Route::get('/cadastrar/{id}/edit', [UserController::class, 'edit']);
 
 //rotas para tratar dados
 Route::get('/import', [importController::class, 'index']);
+
+//appointments
+Route::get('/appointments', [consultaController::class, 'appointments']);
+Route::get('/appointments/config', [consultaController::class, 'appointmentConfig']);
+Route::get('/appointments/list', [consultaController::class, 'appointmentList']);
+Route::get('/appointments/link', [consultaController::class, 'appointmentLink']);
+Route::get('/appointments/calendar', [consultaController::class, 'appointmentCalendar']);
+Route::get('/appointments/add_appointment', [consultaController::class, 'appointmentAdd']);
+Route::get('/appointments/confirm', [consultaController::class, 'appointmentConfirm']);
+Route::get('/appointments/config_holiday', [consultaController::class, 'appointmentConfigHoliday']);
+
+Route::get('/services/add', [consultaController::class, 'serviceAdd']);
+Route::get('/services', [consultaController::class, 'services']);

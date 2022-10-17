@@ -13,18 +13,18 @@ class CreateConsultaTable extends Migration
      */
     public function up()
     {
-        Schema::create('consultas', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
-            $table->string('nome');
-            $table->string('telefone');
-            $table->string('endereco')->nullable();
-            $table->date('data_consulta');
-            $table->string('dentista');
-            $table->string('observacao');
+            $table->unsignedBigInteger('id_profissional');
+            $table->date('appointments_date');
+            $table->string('appointment_type');//remote, presential
+            $table->string('appointment_link');
+            $table->string('comments');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_professional')->references('id')->on('professional');
         });
     }
 
