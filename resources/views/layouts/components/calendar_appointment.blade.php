@@ -47,7 +47,7 @@
             <button style='margin-right:2px' class='btn-sm btn-raised btn-secondary unblock' onclick="unblock()">Desbloquear</button>
             <button style='margin-right:2px' class='btn-sm btn-raised btn-danger block' onclick="block()">Bloquear</button>-->
             <div id="calendar-container">
-                <div id="calendar" class="fc fc-ltr fc-unthemed" style="">
+                <div id="calendar" class="fc fc-ltr fc-unthemed">
                     <div class="fc-toolbar fc-header-toolbar row col-lg-12">
                     </div>
                 </div>
