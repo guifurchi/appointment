@@ -11,7 +11,7 @@
 
     <div class="main-panel">
         <!-- end Component -->
-        @include('layouts.components.calendar_appointment')
+        @include('layouts.components.appointments.calendar_appointment')
         <!-- start footer -->
         @include('layouts.partials.footer')
     </div>

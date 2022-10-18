@@ -148,6 +148,11 @@ class consultaController extends Controller
         }
     }
 
+    public function panel(ConsultaRequest $request = null)
+    {
+            return view('panel');
+    }
+
     public function appointments(ConsultaRequest $request = null)
     {
             return view('appointments');
@@ -186,6 +191,11 @@ class consultaController extends Controller
     public function appointmentConfigHoliday(ConsultaRequest $request = null)
     {
             return view('appointmentConfigHoliday');
+    }
+    
+    public function appointmentAddHoliday(ConsultaRequest $request = null)
+    {
+            return view('appointmentAddHoliday');
     }
 
     public function services(ConsultaRequest $request = null)

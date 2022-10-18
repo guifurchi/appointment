@@ -11,7 +11,7 @@
 
     <div class="main-panel">
         <!-- end Component -->
-        @include('layouts.components.config_appointment')
+        @include('layouts.components.appointments.config_appointment')
         <!-- start footer -->
         @include('layouts.partials.footer')
     </div>

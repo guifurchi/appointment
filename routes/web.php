@@ -66,6 +66,8 @@ Route::get('/appointments/calendar', [consultaController::class, 'appointmentCal
 Route::get('/appointments/add_appointment', [consultaController::class, 'appointmentAdd']);
 Route::get('/appointments/confirm', [consultaController::class, 'appointmentConfirm']);
 Route::get('/appointments/config_holiday', [consultaController::class, 'appointmentConfigHoliday']);
+Route::get('/appointments/add_holiday', [consultaController::class, 'appointmentAddHoliday']);
 
 Route::get('/services/add', [consultaController::class, 'serviceAdd']);
 Route::get('/services', [consultaController::class, 'services']);
+Route::get('/panel', [consultaController::class, 'panel']);

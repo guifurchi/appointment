@@ -22,7 +22,7 @@
         <div class="sidebar-content ps-container ps-theme-default" data-ps-id="48afcc61-53ef-839a-216e-9d9c51471c38">
           <div class="nav-container">
             <ul id="main-menu-navigation" data-menu="menu-navigation" data-scroll-to-active="true" class="navigation navigation-main">
-              <li class="nav-item"><a href="/painel"><i class="icon-home"></i><span data-i18n="" class="menu-title">Painel</span></a></li>
+              <li class="nav-item"><a href="/panel"><i class="icon-home"></i><span data-i18n="" class="menu-title">Painel</span></a></li>
               <li class="has-sub nav-item"><a href="#"><i class="icon-edit"></i><span data-i18n="" class="menu-title">Agenda</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">9</span></a>
                 <ul class="menu-content">
                   <li><a href="/services" class="menu-item">Serviços</a></li>

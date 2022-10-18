@@ -11,7 +11,7 @@
 
     <div class="main-panel">
         <!-- end Component -->
-
+        @include('layouts.components.appointments.addHoliday_appointment')
         <!-- start footer -->
         @include('layouts.partials.footer')
     </div>

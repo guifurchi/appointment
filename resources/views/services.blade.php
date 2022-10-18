@@ -11,7 +11,7 @@
 
     <div class="main-panel">
         <!-- end Component -->
-        @include('layouts.components.all_services')
+        @include('layouts.components.services.all_services')
         <!-- start footer -->
         @include('layouts.partials.footer')
     </div>
