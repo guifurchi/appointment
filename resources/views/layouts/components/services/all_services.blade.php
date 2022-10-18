@@ -45,9 +45,9 @@
                                   <td>0</td>
                                   <td>0</td>
                                   <td>
-                                    <a href="/appointments/eventos/1872/servico/" title="Ver Agenda" target="_blank"><i class="icon-calendar font-medium-3 mr-2"></i></a>
-                                    <a class="success p-0" data-original-title="" title="" href="/appointments/servicos/edit/{id}"><span data-toggle="tooltip" data-placement="right" title="Editar Serviço"><i class="icon-edit font-medium-3 mr-2"></i></span></a>
-                                    <a class="danger p-0" data-original-title="" title="" href="/appointments/servicos/delete/{id}"><span data-toggle="tooltip" data-placement="right" title="Excluir Serviço"><i class="icon-trash font-medium-3 mr-2"></i></span></a>
+                                    <a href="/appointments/services/events/{id}" title="Ver Agenda" target="_blank"><i class="icon-calendar font-medium-3 mr-2"></i></a>
+                                    <a class="success p-0" data-original-title="" title="" href="/services/edit/{id}"><span data-toggle="tooltip" data-placement="right" title="Editar Serviço"><i class="icon-edit font-medium-3 mr-2"></i></span></a>
+                                    <a class="danger p-0" data-original-title="" title="" href="/services/delete/{id}"><span data-toggle="tooltip" data-placement="right" title="Excluir Serviço"><i class="icon-trash font-medium-3 mr-2"></i></span></a>
                                   </td>
                               </tr>
                             </tbody>

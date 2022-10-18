@@ -26,13 +26,25 @@
                                     <td>Cópia da Nutricionista Valéria Furchi</td>
                                     <td><span class="badge badge-success">Sim</span></td>
                                     <td><span class="badge badge-success">Sim</span></td>
-                                    <td><a href="/agendamentos/feriados/edit_agenda/2228"><span data-toggle="tooltip" data-placement="right" title="Editar Agendamento"><i class="icon-edit font-medium-3 mr-2"></i></span></a></td>  
+                                    <td>
+                                        <a href="/appointments/edit_holiday/2228">
+                                        <span data-toggle="tooltip" data-placement="right" title="Editar Agendamento">
+                                            <i class="icon-edit font-medium-3 mr-2"></i>
+                                        </span>
+                                        </a>
+                                    </td>  
                                 </tr>
                                 <tr>
                                     <td>Nutricionista Valéria Furchi</td>
                                     <td><span class="badge badge-success">Sim</span></td>
                                     <td><span class="badge badge-success">Sim</span></td>
-                                    <td><a href="/agendamentos/feriados/edit_agenda/2178"><span data-toggle="tooltip" data-placement="right" title="Editar Agendamento"><i class="icon-edit font-medium-3 mr-2"></i></span></a></td>  
+                                    <td>
+                                            <a href="/appointments/edit_holiday/2178">
+                                            <span data-toggle="tooltip" data-placement="right" title="Editar Agendamento">
+                                                <i class="icon-edit font-medium-3 mr-2"></i>
+                                            </span>
+                                        </a>
+                                    </td>  
                                 </tr>
                             </tbody>
                         </table>

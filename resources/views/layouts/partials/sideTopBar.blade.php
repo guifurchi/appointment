@@ -4,11 +4,11 @@
 }
 </style>
 <div class="wrapper nav-collapsed menu-collapsed">
-      <div data-active-color="white" data-background-color="king-yna" data-image="../assets/img/sidebar-bg/01.jpg" class="app-sidebar">
+      <div data-active-color="white" data-background-color="king-yna" data-image="../../assets/img/sidebar-bg/01.jpg" class="app-sidebar">
         <div class="sidebar-header">
           <div class="logo clearfix">
             <a href="/" class="logo-text float-left">
-              <div class="logo-img"><img src="../assets/img/logo.png" style="width: 20px;"></div>
+              <div class="logo-img"><img src="../../assets/img/logo.png" style="width: 20px;"></div>
               <span class="text align-middle"></span>
             </a>
             <a id="sidebarToggle" href="javascript:;" class="nav-toggle d-none d-sm-none d-md-none d-lg-block">
@@ -32,9 +32,9 @@
                   <li><a href="/appointments/list" class="menu-item">Listar Agendamentos</a></li>
                   <!--<li><a href="/appointments/recorrencias" class="menu-item">Recorrências</a></li>-->
                   <li><a href="/appointments/calendar" class="menu-item">Ver Minha Agenda</a></li>
-                  <li><a href="/appointments/add_appointment" class="menu-item">Incluir Agendamento</a></li>
+                  <li><a href="/appointments/appointment/add" class="menu-item">Incluir Agendamento</a></li>
                   <li><a href="/appointments/confirm" class="menu-item">Confirmar Agendamentos</a></li>
-                  <li><a href="/appointments/config_holiday" class="menu-item">Feriados</a></li>
+                  <li><a href="/appointments/holiday/config" class="menu-item">Feriados</a></li>
                 </ul>
               </li>
               <li class="has-sub nav-item"><a href="#"><i class="icon-star"></i><span data-i18n="" class="menu-title">Clientes</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">2</span></a>
@@ -104,7 +104,7 @@
             </div>
           </div>
         </div>
-        <div class="sidebar-background" style="background-image: url(&quot;../assets/img/sidebar-bg/01.jpg&quot;);">
+        <div class="sidebar-background" style="background-image: url(&quot;../../assets/img/sidebar-bg/01.jpg&quot;);">
         </div>
       </div>
       <!-- end side bar-->

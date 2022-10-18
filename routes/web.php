@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\consultaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\authController;
-use App\Http\Controllers\indexController;
-use App\Http\Controllers\apiController;
+use App\Http\Controllers\appointmentController;
+use App\Http\Controllers\serviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,16 +58,20 @@ Route::get('/cadastrar/{id}/edit', [UserController::class, 'edit']);
 Route::get('/import', [importController::class, 'index']);
 
 //appointments
-Route::get('/appointments', [consultaController::class, 'appointments']);
-Route::get('/appointments/config', [consultaController::class, 'appointmentConfig']);
-Route::get('/appointments/list', [consultaController::class, 'appointmentList']);
-Route::get('/appointments/link', [consultaController::class, 'appointmentLink']);
-Route::get('/appointments/calendar', [consultaController::class, 'appointmentCalendar']);
-Route::get('/appointments/add_appointment', [consultaController::class, 'appointmentAdd']);
-Route::get('/appointments/confirm', [consultaController::class, 'appointmentConfirm']);
-Route::get('/appointments/config_holiday', [consultaController::class, 'appointmentConfigHoliday']);
-Route::get('/appointments/add_holiday', [consultaController::class, 'appointmentAddHoliday']);
+Route::get('/panel', [appointmentController::class, 'panel']);
+Route::get('/appointments', [appointmentController::class, 'appointments']);
+Route::get('/appointments/config', [appointmentController::class, 'appointmentConfig']);
+Route::get('/appointments/list', [appointmentController::class, 'appointmentList']);
+Route::get('/appointments/link', [appointmentController::class, 'appointmentLink']);
+Route::get('/appointments/calendar', [appointmentController::class, 'appointmentCalendar']);
+Route::get('/appointments/appointment/add', [appointmentController::class, 'appointmentAdd']);
+Route::get('/appointments/confirm', [appointmentController::class, 'appointmentConfirm']);
+Route::get('/appointments/holiday/config', [appointmentController::class, 'appointmentHolidayConfig']);
+Route::get('/appointments/holiday/add', [appointmentController::class, 'appointmentHolidayAdd']);
+Route::get('/appointments/holiday/edit/{id}', [appointmentController::class, 'appointmentHolidayEdit']);
 
-Route::get('/services/add', [consultaController::class, 'serviceAdd']);
-Route::get('/services', [consultaController::class, 'services']);
-Route::get('/panel', [consultaController::class, 'panel']);
+//services
+Route::get('/services', [serviceController::class, 'index']);
+Route::get('/services/add', [serviceController::class, 'serviceAdd']);
+Route::get('/services/edit/{id}', [serviceController::class, 'serviceEdit']);
+Route::get('/services/delete/{id}', [serviceController::class, 'serviceDestroy']);
