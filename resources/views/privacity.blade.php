@@ -6,6 +6,6 @@
 
 @include('layouts.partials.top_d')
 
-@include('layouts.components.user.form_login')
+@include('layouts.components.user.privacity')
 
 @endsection

@@ -2,12 +2,23 @@
 
 @section('content')
 
-@include('layouts.partials.basic')
+@include('layouts.partials.head')
 
-@include('layouts.partials.topNovoUsuario')
+@include('layouts.partials.top_d')
 
-@include('layouts.components.form_cadastro')
+<div class="container">
+        <div class="row">
+            <div class="col-sm mt-4">
+                <img src="../../assets/img/create_account.png" style="width: 500px;">
+            </div>
+            <div class="col-sm card mt-4">
+                <div class="mt-4">
 
-@include('layouts.partials.footer')
+                    @include('layouts.components.user.form_cadastro')
+
+                </div>        
+            </div>
+        </div>
+    </div>
 
 @endsection

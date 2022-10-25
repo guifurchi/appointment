@@ -15,12 +15,11 @@ class InsertUser extends Migration
     public function up()
     {
         DB::table('users')->insert([
-            'name' => 'Guilherme',
-            'email' => 'guifurchi65@gmail.com',
-            'telefone' => '92981882726',
-            'endereco' => '',
-            'nivel' => 'admin', 
-            'password' => '827ccb0eea8a706c4c34a16891f84e7b'//md5 encode for '12345'
+            'u_name' => 'Guilherme',
+            'u_email' => 'guifurchi65@gmail.com',
+            'u_phone' => '92981882726',
+            'u_password' => '827ccb0eea8a706c4c34a16891f84e7b',//md5 encode for '12345'
+            'u_level' => 'admin', 
         ]);
     }
 

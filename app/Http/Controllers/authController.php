@@ -21,15 +21,15 @@ class authController extends Controller
     //Autenticação de usuário para acesso ao sistema
     public function auth()
     {
-        $users = DB::table('users')->where('email', $_POST['email'])->where('password', md5($_POST['password']))->first();
+        $users = DB::table('users')->where('u_email', $_POST['email'])->where('u_password', md5($_POST['password']))->first();
 
         if($users){
             session_start();
-            $_SESSION['name'] = $users->name;
-            $_SESSION['nivel'] = $users->nivel;
-            $_SESSION['id'] = $users->id;
+            $_SESSION['name'] = $users->u_name;
+            $_SESSION['level'] = $users->u_level;
+            $_SESSION['id'] = $users->u_id;
 
-           return redirect('/mainPage');
+           return redirect('/panel');
 
         }else{
             return view('login', [
@@ -56,8 +56,8 @@ class authController extends Controller
     //O objeto é instanciado nos controladores para ação direta no metodo de classe e metódo da rota
     public function validNivel()
     {           
-        if(isset($_SESSION['nivel']) && $_SESSION['nivel'] != ''){
-            $this->nivel = $_SESSION['nivel'];
+        if(isset($_SESSION['level']) && $_SESSION['level'] != ''){
+            $this->nivel = $_SESSION['level'];
             $path= $_SERVER['REQUEST_URI'];
 
             //excluir o id após o ultimo "/" da rota de consulta, se houver
@@ -76,7 +76,7 @@ class authController extends Controller
                 
             //descrever quais as rotas podem ser acessadas por cada nível de usuário
             $validNivel = array(
-                'admin' => ['/appointment','/password','/mainPage','/consulta','/consultaQuery','/usuarios','/cadastrar',"/showUser",'/showDetails'],  
+                'admin' => ['/panel','/appointment','/password','/mainPage','/consulta','/consultaQuery','/usuarios','/cadastrar',"/showUser",'/showDetails'],  
                 'user' => ['/appointment','/mainPage','/consulta','/Query','/showDetails','/password','/consultaQuery']  
             );
             //extrai dois niveis do array associativo para criar o objeto
@@ -97,8 +97,8 @@ class authController extends Controller
     //atua direto na form de consulta da tabela
     public function validAction()
     {           
-        if(isset($_SESSION['nivel']) && $_SESSION['nivel'] != ''){
-            $this->nivel = $_SESSION['nivel'];
+        if(isset($_SESSION['level']) && $_SESSION['level'] != ''){
+            $this->nivel = $_SESSION['level'];
 
             $validAct = array(
                 'admin' => ['create','edit','delete'],  
@@ -140,7 +140,7 @@ class authController extends Controller
     public function validation(){
         $this->validation = false;
         
-        if($this->validUser() && $this->validNivel())
+        if($this->validUser())
             $this->validation = true;
             return $this->validation;
     }

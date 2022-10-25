@@ -15,11 +15,23 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('level')->default('user');
-            $table->string('phone');
-            $table->string('password');
+            $table->char('u_name', 50);
+            $table->char('u_email', 50)->unique();
+            $table->char('u_password', 50);
+            $table->string('u_level')->default('user');
+            $table->string('u_phone')->nullable();
+            $table->string('u_cpf')->nullable();
+            $table->string('u_gender')->nullable();
+            $table->string('u_marital_status')->nullable();
+            $table->char('u_type_ident', 50)->nullable();
+            $table->string('u_type_ident_num')->nullable();
+            $table->string('u_nacionality')->nullable();
+            $table->date('u_birthday')->nullable();
+            $table->char('u_occupation', 100)->nullable();
+            $table->char('u_address', 150)->nullable();
+            $table->char('u_agreementEulaPrivacity', 1)->nullable();
+            $table->string('u_planType')->nullable();
+            $table->string('u_planStatus')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

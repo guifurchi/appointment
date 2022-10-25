@@ -26,7 +26,6 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email',
-            'nivel' => 'required',
             'password' => 'required',
         ];
     }
@@ -36,7 +35,6 @@ class UserRequest extends FormRequest
     return [
         'name.required' => 'Favor inserir um nome.',
         'email.required' => 'Favor inserir um email válido.',
-        'nivel.required' => 'Favor inserir um nivel.',
         'senha.required' => 'Favor inserir uma senha.',
     ];
 }

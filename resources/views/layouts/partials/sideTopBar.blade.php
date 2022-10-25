@@ -1,3 +1,10 @@
+<?php
+use App\Models\User;
+$user = new User();
+$user = $user->find($_SESSION['id']);
+
+?>
+
 <style>
   a {
   text-decoration: none;
@@ -23,59 +30,76 @@
           <div class="nav-container">
             <ul id="main-menu-navigation" data-menu="menu-navigation" data-scroll-to-active="true" class="navigation navigation-main">
               <li class="nav-item"><a href="/panel"><i class="icon-home"></i><span data-i18n="" class="menu-title">Painel</span></a></li>
+              
+              <li class="has-sub nav-item"><a href="#"><i class="icon-gear"></i><span data-i18n="" class="menu-title">Configurações</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">9</span></a>
+                <ul class="menu-content">
+                    <li><a href="/services" class="menu-item">Serviços</a></li>
+                    <li><a href="/appointments" class="menu-item">Agendas</a></li>
+                    <li><a href="/appointments/config/page" class="menu-item">Página de Agendamento</a></li>
+                    <li><a href="/appointments/link" class="menu-item">Links de Agendamento</a></li>
+                    <li><a href="/appointments/holiday/config" class="menu-item">Feriados</a></li>
+                  </ul>
+              </li>
+
               <li class="has-sub nav-item"><a href="#"><i class="icon-edit"></i><span data-i18n="" class="menu-title">Agenda</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">9</span></a>
                 <ul class="menu-content">
-                  <li><a href="/services" class="menu-item">Serviços</a></li>
-                  <li><a href="/appointments" class="menu-item">Configuração</a></li>
-                  <li><a href="/appointments/link" class="menu-item">Links de Agendamento</a></li>
+                  <li><a href="/appointments/appointment/add" class="menu-item">Incluir Agendamento</a></li>
+                  <li><a href="/appointments/confirm" class="menu-item">Confirmar Agendamentos</a></li>
+                  <li><a href="/appointments/calendar" class="menu-item">Ver Minha Agenda</a></li>
                   <!--<li><a href="/appointments/limites" class="menu-item">Limites de Agendamentos</a></li>-->
                   <li><a href="/appointments/list" class="menu-item">Listar Agendamentos</a></li>
                   <!--<li><a href="/appointments/recorrencias" class="menu-item">Recorrências</a></li>-->
-                  <li><a href="/appointments/calendar" class="menu-item">Ver Minha Agenda</a></li>
-                  <li><a href="/appointments/appointment/add" class="menu-item">Incluir Agendamento</a></li>
-                  <li><a href="/appointments/confirm" class="menu-item">Confirmar Agendamentos</a></li>
-                  <li><a href="/appointments/holiday/config" class="menu-item">Feriados</a></li>
                 </ul>
               </li>
-              <li class="has-sub nav-item"><a href="#"><i class="icon-star"></i><span data-i18n="" class="menu-title">Clientes</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">2</span></a>
+              <li class="has-sub nav-item"><a href="#"><i class="icon-heart-empty"></i><span data-i18n="" class="menu-title">Clientes</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">2</span></a>
                 <ul class="menu-content">
-                  <li><a href="/clientes/top10" class="menu-item">Top 10</a></li>
-                  <li><a href="/clientes/listar" class="menu-item">Buscar</a></li>
+                  <li><a href="/clients/add" class="menu-item">Incluir Clientes</a></li>
+                  <li><a href="/clients/list" class="menu-item">Ver Clientes</a></li>
                 </ul>
               </li>
-              <li class="has-sub nav-item"><a href="#"><i class="icon-book"></i><span data-i18n="" class="menu-title">Relatórios</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">3</span></a>
+              <!--
+              <li class="has-sub nav-item"><a href="#"><i class="icon-file-text-alt"></i><span data-i18n="" class="menu-title">Relatórios</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">3</span></a>
                 <ul class="menu-content">
                   <li><a href="/relatorio_clientes/" class="menu-item">Clientes</a></li>
                   <li><a href="/relatorios/" class="menu-item">Consolidado</a></li>
                   <li><a href="/appointments/relatorio" class="menu-item">Agendamentos</a></li>
                 </ul>
               </li>
+              -->
+              <!--
               <li class="has-sub nav-item"><a href="#"><i class="icon-search"></i><span data-i18n="" class="menu-title">Formulários</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">1</span></a>
                 <ul class="menu-content">
                   <li><a href="/pesquisas/controle" class="menu-item">Gerenciar Formulários</a></li>
                 </ul>
               </li>
+              -->
               <li class="has-sub nav-item"><a href="#"><i class="icon-bullhorn"></i><span data-i18n="" class="menu-title">Comunicação</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">4</span></a>
                 <ul class="menu-content">
-                  <li><a href="/notificacao/regras" class="menu-item">Regras de Notificação</a></li>
-                  <li><a href="/notificacao/email_template" class="menu-item">Modelos de Email</a></li>
+                  <li><a href="/communications/notify" class="menu-item">Regras de Notificação</a></li>
+                  <li><a href="/communications/email" class="menu-item">Modelos de Email</a></li>
+                  <!--
                   <li><a href="/notificacao/envios" class="menu-item">Acompanhamento</a></li>
                   <li><a href="/users/pacotes/notificacoes/" class="menu-item">Pacotes de Envio</a></li>
+                  -->
                 </ul>
               </li>
               <li class="has-sub nav-item"><a href="#"><i class="icon-link"></i><span data-i18n="" class="menu-title">Integrações</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">6</span></a>
                 <ul class="menu-content">
+                  <li><a href="/integrations/site" class="menu-item">Sites</a></li>
+
+                  <!--
                   <li><a href="/users/integracao/meu_atendimento" class="menu-item">Atendimento Presencial</a></li>
                   <li><a href="/appointments/google_agenda" class="menu-item">Google Calendar</a></li>
                   <li><a href="/users/integracao/zoom" class="menu-item">Zoom</a></li>
-                  <li><a href="/users/integracao/incorporar" class="menu-item">Sites</a></li>
                   <li><a href="/users/integracao/email" class="menu-item">Emails</a></li>
                   <li><a href="/users/integracao/api" class="menu-item">API</a></li>
+                  -->
                 </ul>
               </li>
-               <li class="has-sub nav-item"><a href="#"><i class="icon-briefcase"></i><span data-i18n="" class="menu-title">Conta</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">7</span></a>
+              <!--
+               <li class="has-sub nav-item"><a href="#"><i class="icon-user"></i><span data-i18n="" class="menu-title">Conta</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">7</span></a>
                 <ul class="menu-content">
-                  <li><a href="/users/tela_agendamento/" class="menu-item">Tela de Agendamento</a></li>
+                  <li><a href="/appointments/config/page" class="menu-item">Tela de Agendamento</a></li>
                   <li><a href="/users/editar_cadastro/" class="menu-item">Configurações Gerais</a></li>
                   <li><a href="/users/clientes_autorizados/" class="menu-item">Acesso de Clientes</a></li>
                   <li><a href="/users/adm_equipe/" class="menu-item">Administrar Equipe</a></li>
@@ -85,12 +109,14 @@
                   <li><a href="/users/pacote_sms/" class="menu-item">Envio de SMS</a></li>
                 </ul>
               </li>
+                -->
                <li class="has-sub nav-item"><a href="#"><i class="icon-question-sign"></i><span data-i18n="" class="menu-title">Ajuda</span><span class="tag badge badge-pill badge-danger float-right mr-1 mt-1">4</span></a>
                 <ul class="menu-content">
-                  <li><a href="/painel/ajuda" class="menu-item">Passo a Passo</a></li>
-                  <li><a href="https://wa.me/5511942529100" target="_blank" class="menu-item">Suporte via WhatsApp</a></li>
+                  <li><a href="/panel/help" class="menu-item">Passo a Passo</a></li>
+                  <!--<li><a href="https://wa.me/5511942529100" target="_blank" class="menu-item">Suporte via WhatsApp</a></li>
                   <li><a href="https://mupisystems.com.br/assuntos/minhaagendavirtual/" class="menu-item" target="_blank">Tutoriais</a></li>
                   <li><a href="https://youtube.com/playlist?list=PLiDGTmIoa5djR0E5wSTSsOsJjcG60oYoy" class="menu-item" target="_blank">Vídeos no YouTube</a></li>
+                  -->
                 </ul>
               </li>
             </ul>
@@ -126,21 +152,23 @@
                  </a>
                  <div ngbdropdownmenu="" aria-labelledby="dropdownBasic3" class="dropdown-menu text-left dropdown-menu-right">
                    <a class="dropdown-item py-1">
-                      <span>guifurchi65@gmail.com</span><!--dinamico email-->
+                      <span>{{$user->u_email}}</span><!--dinamico email-->
                    </a>
-                   <a href="/appointments/meus-agendamentos/" class="dropdown-item py-1">
+                   <a href="/appointments/" class="dropdown-item py-1">
                       <i class="ft-settings mr-2"></i>
                       <span>Meus agendamentos</span>
                    </a>
-                   <a href="/users/meu_usuario/" class="dropdown-item">
+                   <a href="/account/adit" class="dropdown-item">
                       <i class="ft-user mr-2"></i>
                       <span>Minha Conta</span>
                     </a>
+                    <!--
                     <a href="/accounts/social/connections/" class="dropdown-item">
                       <i class="ft-user mr-2"></i>
                       <span>Contas Vinculadas</span>
                     </a>
-                   <a href="/accounts/logout/" class="dropdown-item">
+                    -->
+                   <a href="/logout" class="dropdown-item">
                       <i class="ft-power mr-2"></i>
                       <span>Logout</span>
                    </a>
@@ -165,21 +193,23 @@
                     <i class="icon-user font-medium-3 blue-grey darken-4"></i><p class="d-none">User Settings</p></a>
                   <div ngbdropdownmenu="" aria-labelledby="dropdownBasic3" class="dropdown-menu text-left dropdown-menu-right">
                     <a class="dropdown-item py-1">
-                    <span>guifurchi65@gmail.com</span>
+                    <span>{{$user->u_email}}</span>
                     </a>
-                    <a href="/appointments/meus-agendamentos/" class="dropdown-item py-1"><i class="icon-settings mr-2"></i>
+                    <a href="/appointments" class="dropdown-item py-1"><i class="icon-settings mr-2"></i>
                       <span>Meus agendamentos</span>
                     </a>
-                    <a href="/users/meu_usuario/" class="dropdown-item"><i class="icon-user mr-2"></i>
+                    <a href="/account/edit/" class="dropdown-item"><i class="icon-user mr-2"></i>
                       <span>Minha Conta</span>
                     </a>
+                    <!--
                     <a href="/accounts/social/connections/" class="dropdown-item"><i class="icon-external-link mr-2"></i>
                       <span>Contas Vinculadas</span>
                     </a>
-                    <a href="/accounts/password/change/" class="dropdown-item"><i class="icon-lock mr-2"></i>
+                    -->
+                    <a href="/password" class="dropdown-item"><i class="icon-lock mr-2"></i>
                       <span>Alterar Senha</span>
                     </a>
-                    <a href="/accounts/logout/" class="dropdown-item"><i class="icon-power mr-2"></i>
+                    <a href="/logout/" class="dropdown-item"><i class="icon-power mr-2"></i>
                       <span>Logout</span>
                     </a>
                   </div>

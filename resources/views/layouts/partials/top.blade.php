@@ -16,7 +16,7 @@
                             <a class="nav-link" href="/usuarios">Usuários</a>
                         </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/password/{{$_SESSION['id'] }}">Trocar Senha</a>
+                        <a class="nav-link" href="/password/{{$_SESSION['u_id']}}">Trocar Senha</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
@@ -28,7 +28,7 @@
         <div class="container mb-4">
             <div class="row">
                 <div class="col">
-                    <small >Seja bem vindo(a), {{ $_SESSION['name'] }}! ({{ $_SESSION['nivel'] }})</small>
+                    <small >Seja bem vindo(a), {{ $_SESSION['u_name'] }}! ({{ $_SESSION['u_level'] }})</small>
                 </div>
             </div>
         </div>

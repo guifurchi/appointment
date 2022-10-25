@@ -24,12 +24,30 @@ class serviceController extends Controller
 
     public function index()
     {
+        if($this->auth->validation()){
+
         return view('services');
+
+        }else{
+
+            return $this->auth->redirectToLogin();
+
+        }
+
     }
 
     public function serviceAdd(ConsultaRequest $request = null)
     {
+        if($this->auth->validation()){
+
         return view('serviceAdd');
+
+        }else{
+
+            return $this->auth->redirectToLogin();
+
+        }
+
     }
 
     public function serviceEdit(ConsultaRequest $request, $id)

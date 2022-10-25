@@ -30,16 +30,38 @@ class userController extends Controller
     public function index()
     {
         if($this->valid->validation()){
-            $level = DB::table('nivel')->get();
+            $level = DB::table('u_level')->get();
             return view('cadastrar', compact(['level']),[
                 'title' => 'Cadastrar Usuário', 
                 'action' => '',
                 'erro' => ''
             ]);
         }else{
+
             return $this->valid->redirectToLogin();
+
         }
 
+    }
+
+    public function eula() 
+    {
+        return view('eula',[
+            'title' => 'Termos de uso', 
+            'action' => '',
+            'erro' => ''
+
+        ]);
+    }
+
+    public function privacity() 
+    {
+        return view('privacity',[
+            'title' => 'Privacidade', 
+            'action' => '',
+            'erro' => ''
+
+        ]);
     }
 
     public function newUserPage()
@@ -56,16 +78,15 @@ class userController extends Controller
     {
 
             //verificar se a email já foi cadastrada no sistema
-            $users = DB::table('users')->where('email', $_POST['email'])->first();
-            $level = DB::table('nivel')->get();
+            $users = DB::table('users')->where('u_email', $_POST['email'])->first();
 
             if(!isset($users)){
                 echo 'pode inserir';
                 $user = $this->user;
-                $user->name = $request->input('name');
-                $user->email = $request->input('email');
-                $user->password = md5($request->input('password'));
-                $user->nivel = $request->input('nivel');
+                $user->u_name = $request->input('u_name');
+                $user->u_email = $request->input('u_email');
+                $user->u_password = md5($request->input('u_password'));
+                $user->u_planType = $request->input('u_planType');
                 $user = $user->save();
                 return redirect('/usuarios');
             }else{
@@ -82,11 +103,6 @@ class userController extends Controller
     public function read()
     {
         return $this->user;
-    }
-
-    public function store(Request $request)
-    {
-      //
     }
 
     public function showUser($id)
@@ -126,8 +142,8 @@ class userController extends Controller
         if($this->valid->validation()){
 
             $this->user->where(['id' => $id])->update([
-                'name' => $request->name,
-                'email' => $request->email
+                'u_name' => $request->name,
+                'u_email' => $request->email
             ]);
 
             return redirect('/usuarios');
@@ -145,6 +161,7 @@ class userController extends Controller
             return redirect('/usuarios');
 
         }else{
+
             return $this->valid->redirectToLogin();
         }
 
@@ -160,8 +177,11 @@ class userController extends Controller
                 'title' => 'Usuários', 
                 'action' => 'Usuários cadastrados'
             ]);
+
         }else{
+
             return $this->valid->redirectToLogin();
+
         }
     }
 
@@ -178,7 +198,9 @@ class userController extends Controller
             ]);
 
         }else{
+
             return $this->valid->redirectToLogin();
+
         }
     }
 
@@ -220,7 +242,9 @@ class userController extends Controller
             return redirect('/mainPage');
             
         }else{
+
             return $this->valid->redirectToLogin();
+            
         }
     }
 }

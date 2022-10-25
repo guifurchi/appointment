@@ -105,9 +105,6 @@ function add_time_no_option() {
 
 
 $(document).ready(function() {
-    if(document.getElementById('err_msg').innerText != ""){
-        error("Erro",document.getElementById('err_msg').innerText);
-    }
 
     $('#appointment_subtype').on('change', function() {
         $('#available_date').prop('selectedIndex', 0);
