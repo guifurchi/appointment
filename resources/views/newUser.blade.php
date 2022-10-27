@@ -14,7 +14,7 @@
             <div class="col-sm card mt-4">
                 <div class="mt-4">
 
-                    @include('layouts.components.user.form_cadastro')
+                    @include('layouts.components.user.add_access')
 
                 </div>        
             </div>

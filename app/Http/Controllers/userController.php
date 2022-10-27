@@ -25,15 +25,16 @@ class userController extends Controller
     {
         $this->user = new User();
         $this->valid = new authController();
+        $this->index = new indexController();
     }
 
     public function index()
     {
         if($this->valid->validation()){
             $level = DB::table('u_level')->get();
-            return view('cadastrar', compact(['level']),[
-                'title' => 'Cadastrar Usuário', 
-                'action' => '',
+            return view('access', compact(['level']),[
+                'title' => 'access Usuário', 
+                'msg' => '',
                 'erro' => ''
             ]);
         }else{
@@ -48,7 +49,7 @@ class userController extends Controller
     {
         return view('eula',[
             'title' => 'Termos de uso', 
-            'action' => '',
+            'msg' => '',
             'erro' => ''
 
         ]);
@@ -58,7 +59,7 @@ class userController extends Controller
     {
         return view('privacity',[
             'title' => 'Privacidade', 
-            'action' => '',
+            'msg' => '',
             'erro' => ''
 
         ]);
@@ -66,9 +67,9 @@ class userController extends Controller
 
     public function newUserPage()
     {
-            return view('novoUsuario',[
-                'title' => 'Cadastrar Usuário', 
-                'action' => '',
+            return view('newUser',[
+                'title' => 'access Usuário', 
+                'msg' => '',
                 'erro' => ''
             ]);
 
@@ -76,48 +77,43 @@ class userController extends Controller
 
     public function create(UserRequest $request)
     {
-
+        if($this->valid->validation()){
+        
             //verificar se a email já foi cadastrada no sistema
             $users = DB::table('users')->where('u_email', $_POST['email'])->first();
 
             if(!isset($users)){
-                echo 'pode inserir';
                 $user = $this->user;
-                $user->u_name = $request->input('u_name');
-                $user->u_email = $request->input('u_email');
-                $user->u_password = md5($request->input('u_password'));
+                $user->u_name = $request->input('name');
+                $user->u_email = $request->input('email');
+                $user->u_password = md5($request->input('password'));
+                $user->u_agreementEulaPrivacity = $request->input('u_agreementEulaPrivacity');
                 $user->u_planType = $request->input('u_planType');
                 $user = $user->save();
-                return redirect('/usuarios');
+                
+                //autentica, inicia a sessão e cria as $_SESSION de usuário.
+                return $this->valid->authCreate($request->input('email'), md5($request->input('password')));
+
             }else{
-                return view('cadastrar', compact('level'), [
-                    'title' => 'Cadastrar Usuário', 
-                    'action' => '',
-                    'erro' => 'usuário ja cadastrado'
+                return view('newUser', [
+                    'title' => 'access Usuário', 
+                    'msg' => '',
+                    'erro' => 'Email já cadastrado!'
                 ]);
             }
+
+        }else{
+            return $this->valid->redirectToLogin();
+        }
 
 
     }
 
     public function read()
     {
+
         return $this->user;
-    }
 
-    public function showUser($id)
-    {
-        if($this->valid->validation()){
-            $user = $this->user->find($id);
-
-            return view('showUser', compact('user'), [
-                'title' => 'Detalhes do registro', 
-                'action' => ''
-            ]);
-
-        }else{
-            return $this->valid->redirectToLogin();
-        }
     }
 
     public function edit($id)
@@ -126,7 +122,7 @@ class userController extends Controller
             $user = $this->user->find($id);
             $level = DB::table('nivel')->get();
 
-            return view('cadastrar', compact(['user','level']), [
+            return view('access', compact(['user','level']), [
                 'title' => 'Alterar Usuário', 
                 'action' => 'Novos dados do Usuário',
                 'erro' => ''
@@ -158,8 +154,7 @@ class userController extends Controller
         if($this->valid->validation()){
 
             $this->user->destroy($id);
-            return redirect('/usuarios');
-
+            
         }else{
 
             return $this->valid->redirectToLogin();
@@ -186,14 +181,19 @@ class userController extends Controller
     }
 
     //controle de senhas
-    public function editPassword($id, $erro = null)
+    public function editPassword($erro = null, $updated = null)
     {
         if($this->valid->validation()){
 
-            $user = $this->user->find($id);
-            return view('password', compact('user'), [
-                'title' => 'Alterar Senha', 
-                'action' => 'Favor digitar as senhas',
+            $msg = null;
+
+            if($updated){
+                $msg = 'Senha atualizada com sucesso.';
+            }
+
+            return view('password',  
+            [
+                'msg' => $msg, 
                 'erro' => $erro
             ]);
 
@@ -208,7 +208,7 @@ class userController extends Controller
     {
         $user = $this->user->find($id);
 
-        if($user->password == md5($_POST['password_old'])  && $user->password != md5($_POST['password']) ){
+        if($user->u_password == md5($_POST['password_old'])  && $user->u_password != md5($_POST['password']) ){
             $this->validPassword = md5($_POST['password']);
             $validPass = $this->validPassword;
 
@@ -216,10 +216,10 @@ class userController extends Controller
 
         }else{
 
-            if($user->password != md5($_POST['password_old'])){
+            if($user->u_password != md5($_POST['password_old'])){
                 $erro = "Senha atual incorreta!";
             }
-            elseif($user->password != md5($_POST['password'])){
+            elseif($user->u_password != md5($_POST['password'])){
                 $erro = "Senha igual a anterior";
             }
             elseif(md5($_POST['password_old']) == md5($_POST['password'])){
@@ -228,23 +228,20 @@ class userController extends Controller
 
             $this->validPassword = false;
             $validPass = $this->validPassword;
-            return $this->editPassword($id, $erro); 
+            return $this->editPassword($erro, null); 
         }
     }
 
     public function updatePassword($validPass, $id)
     {
-        if($this->valid->validation()){
 
-            $this->user->where(['id' => $id])->update([
-                'password' => $validPass
+            $update = $this->user->where(['id' => $id])->update([
+                'u_password' => $validPass
             ]);
-            return redirect('/mainPage');
-            
-        }else{
 
-            return $this->valid->redirectToLogin();
+            if($update){
+                return $this->editPassword(null, true);
+            }
             
-        }
     }
 }

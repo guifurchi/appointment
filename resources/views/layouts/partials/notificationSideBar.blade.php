@@ -249,70 +249,6 @@
       
 });
 
- function ajax_registrar(id,action){
-        if(action=="attend"){
-            message = "Você tem certeza que deseja marcar como atendido ?"
-          }
-        if(action=="no_show"){
-            message = "Você tem certeza que deseja registrar o não comparecimento deste agendamento?"
-          }
-          if(action=="cancel"){
-            message = "Você tem certeza que deseja cancelar este agendamento?"
-          }
-
-        swal({
-          title: "Confirmar",
-          text: message,
-          //input: "checkbox",
-          //inputValue: 1,
-          //inputPlaceholder:'Enviar notificação por e-mail',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#0CC27E',
-          cancelButtonColor: '#FF586B',
-          confirmButtonText: 'Sim',
-          cancelButtonText: "Não"
-        }).then(function (isConfirm) {
-          if (isConfirm) {
-
-
-
-          var url = '/agendamentos/list_appointment_action/';
-
-          $.ajax( url, {
-              data: {
-                "csrfmiddlewaretoken": csrftoken,
-                "id":id,
-                "action":action
-              },
-              type: 'post',
-              success: function (response) {
-                //location.reload();
-                //console.log(response)
-                document.getElementById(id).textContent = response
-                if(action=="cancel"){
-                  document.getElementById("attend"+id).style.display = "none";
-                  document.getElementById("noshow"+id).style.display = "none";
-                  document.getElementById("cancel"+id).style.display = "none";
-                }
-
-              },
-              error: function (response) {
-            },
-          });
-    }})}
-
-    function troca_view(argument) {
-      // body...
-      if (document.getElementById("matriz").style.display == "none"){
-          document.getElementById("matriz").style.display = "block";
-          document.getElementById("tabela").style.display = "none";
-      }else{
-        document.getElementById("matriz").style.display = "none";
-          document.getElementById("tabela").style.display = "block";
-      }
-
-    }
 </script>
 
 <script type="text/javascript">
@@ -327,9 +263,7 @@
     $('.fc-toolbar.fc-header-toolbar').addClass('row col-lg-12');
     };
     document.querySelector('style').textContent += "@media screen and (max-width:767px) { .fc-toolbar.fc-header-toolbar {flex-direction:column;} .fc-toolbar-chunk { display: table-row; text-align:center; padding:5px 0; } }";
-</script>
 
-<script type="text/javascript">
  $(document).ready(function() {
 
     $('#nova_data').pickadate({
@@ -340,58 +274,6 @@
       
 });
 
- function ajax_registrar(id,action){
-        if(action=="attend"){
-            message = "Você tem certeza que deseja marcar como atendido ?"
-          }
-        if(action=="no_show"){
-            message = "Você tem certeza que deseja registrar o não comparecimento deste agendamento?"
-          }
-          if(action=="cancel"){
-            message = "Você tem certeza que deseja cancelar este agendamento?"
-          }
-
-        swal({
-          title: "Confirmar",
-          text: message,
-          //input: "checkbox",
-          //inputValue: 1,
-          //inputPlaceholder:'Enviar notificação por e-mail',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#0CC27E',
-          cancelButtonColor: '#FF586B',
-          confirmButtonText: 'Sim',
-          cancelButtonText: "Não"
-        }).then(function (isConfirm) {
-          if (isConfirm) {
-
-
-
-          var url = '/agendamentos/list_appointment_action/';
-
-          $.ajax( url, {
-              data: {
-                "csrfmiddlewaretoken": csrftoken,
-                "id":id,
-                "action":action
-              },
-              type: 'post',
-              success: function (response) {
-                //location.reload();
-                //console.log(response)
-                document.getElementById(id).textContent = response
-                if(action=="cancel"){
-                  document.getElementById("attend"+id).style.display = "none";
-                  document.getElementById("noshow"+id).style.display = "none";
-                  document.getElementById("cancel"+id).style.display = "none";
-                }
-
-              },
-              error: function (response) {
-            },
-          });
-    }})}
 
     function troca_view(argument) {
       // body...
@@ -404,8 +286,7 @@
       }
 
     }
-</script>
-<script>
+
 function filtra_tabela() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;

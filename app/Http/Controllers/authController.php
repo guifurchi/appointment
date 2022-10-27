@@ -27,7 +27,7 @@ class authController extends Controller
             session_start();
             $_SESSION['name'] = $users->u_name;
             $_SESSION['level'] = $users->u_level;
-            $_SESSION['id'] = $users->u_id;
+            $_SESSION['id'] = $users->id;
 
            return redirect('/panel');
 
@@ -40,9 +40,23 @@ class authController extends Controller
         }
         return $users;
     }
+
+    public function authCreate($email, $password)
+    {
+        $users = DB::table('users')->where('u_email', $email)->where('u_password', $password)->first();
+
+        if ($users) {
+            $_SESSION['name'] = $users->u_name;
+            $_SESSION['level'] = $users->u_level;
+            $_SESSION['id'] = $users->id;
+
+            return redirect('/panel');
+        }
+    }
     //verifica se o usuário está logado, para poder acessar à pagina diretamente no browser inclusive
     public function validUser()
     {
+        
         session_start();
 
         if(isset($_SESSION['name']) && $_SESSION['name'] != ''){
@@ -76,7 +90,7 @@ class authController extends Controller
                 
             //descrever quais as rotas podem ser acessadas por cada nível de usuário
             $validNivel = array(
-                'admin' => ['/panel','/appointment','/password','/mainPage','/consulta','/consultaQuery','/usuarios','/cadastrar',"/showUser",'/showDetails'],  
+                'admin' => ['/panel','/appointment','/password','/mainPage','/consulta','/consultaQuery','/usuarios','/access',"/showUser",'/showDetails'],  
                 'user' => ['/appointment','/mainPage','/consulta','/Query','/showDetails','/password','/consultaQuery']  
             );
             //extrai dois niveis do array associativo para criar o objeto

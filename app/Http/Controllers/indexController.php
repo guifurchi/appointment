@@ -23,6 +23,22 @@ class indexController extends Controller
         ]);
     }
 
+    public function confirmAction($action)
+    {
+        if($action == 'destroy'){
+
+            return view('/confirmAction',[
+                'action' => 'delete',
+                'title' => 'Sucesso!',
+                'msg' => 'Usuário excluído!',
+                'msg2' => 'Caso queira criar ou acessar outra conta clique em um dos botões abaixo.'
+            ]);
+
+        }
+
+
+}
+
     public function mainPage()
     {
 

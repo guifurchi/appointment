@@ -22,7 +22,7 @@
                     </div>
                     <div class="col mt-4 d-flex justify-content-between">
                         <button type="submit" class="btn btn-primary">Logar</button>
-                        <a class="btn btn-success" href="/cadastrar/create">criar uma conta</a>
+                        <a class="btn btn-success" href="/access/create">criar uma conta</a>
                     </div>
                 </form>
             </div>

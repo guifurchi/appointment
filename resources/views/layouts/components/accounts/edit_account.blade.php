@@ -14,7 +14,7 @@
               <div class="card-body">
                 <h4></h4>
                 <br>
-                <form class="post-form" name="account" action="/account/update" method="post" >
+                <form class="post-form" name="account" action="/account/edit/{{$_SESSION['id']}}" method="post" >
                   @csrf
                   <div class="form-body">
                     <h4 class="form-section"><i class="icon-lock"></i>Dados de Acesso</h4>
@@ -22,14 +22,14 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="id_email">Email:</label>
-                          <input type="email" name="u_email" value="{{$user->u_email}}" maxlength="254" required="" id="u_email" class="form-control">
+                          <input type="email" name="u_email" value="{{$user->u_email}}" maxlength="254" id="u_email" class="form-control" readonly>
                         </div>
                       </div>
 
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="u_planType">Plano Ativo:</label>
-                          <input type="text" name="u_planType" value="{{$user->u_planType}}"maxlength="50" required="" id="u_planType" class="form-control">
+                          <input type="text" name="u_planType" value="{{$user->u_planType}}"maxlength="50" id="u_planType" class="form-control" readonly>
                         </div>
                       </div>
                     </div>
@@ -133,7 +133,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="id_birthday">Data de nascimento:</label>
-                          <input type="text" name="u_birthday" value="{{ date('d/m/Y', strtotime($user->u_birthday)) }}" data-mask="00/00/0000" format="%d/%m/%Y" id="id_birthday" autocomplete="off" maxlength="10" class="form-control">
+                          <input type="text" name="u_birthday" value="{{ date('d/m/Y', strtotime($user->u_birthday)) }}" data-mask="00-00-0000" format="%d-%m-%Y" id="id_birthday" autocomplete="off" maxlength="10" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -170,7 +170,7 @@
                 <h4 class="form-section"><i class="icon-trash"></i> Encerrar Conta</h4>
                   Encerre esta conta na eAgenda. Essa ação não pode ser desfeita e todos os dados relacionados a seu usuários serão excluídos, inclusive agendamentos e dados de configuração.<br><br>
                   <div class="form-actions right">
-                    <a href="/users/excluir_usuario/" class="btn btn-danger"> <i class="fa fa-trash"></i> Encerrar Conta</a>
+                    <button id="btn-delete" onclick="action('{{$user->id}}','destroy')" data-id="{{$_SESSION['id']}}" class="btn btn-danger"> <i class="fa fa-trash"></i> Encerrar Conta</button>
                   </div>
               </div>
             </div>
@@ -178,7 +178,57 @@
         </div>
       </div>
     </section>
-    <div id="err_msg"></div>
+    <div id="err_msg">
+      <?php $action = '';?>
+      @if($action != '') {{$action}} @else {{''}} @endif
+    </div>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+@if ($msg != NULL)
+<script>
+swal(
+    'Parabéns!',
+    '{{$msg}}',
+    'success')
+</script>
+@endif
+<script>
+
+function action(id,action){
+
+    var token = $("input[name=_token]").val()
+    var message = "Você tem certeza que deseja encerrar a sua conta?"
+    console.log(token)
+
+    swal({
+          title: "Confirmar",
+          text: message,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#0CC27E',
+          cancelButtonColor: '#FF586B',
+          confirmButtonText: 'Sim',
+          cancelButtonText: "Não"
+        }).then(function (isConfirm) {
+          if (isConfirm) {
+
+            $.ajax({
+            url: "/access/" + id + "/delete",
+            type: 'post',
+            data: {
+                "id": id,
+                "_token": token,
+            },
+              success: function (){
+                  window.location.href = '/confirm/'+action
+              }
+            })
+          }
+
+      })
+   
+};
+
 </script>

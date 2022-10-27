@@ -2,7 +2,7 @@
     @foreach ($validA as $act)
         @if($act == 'create')
             <div class="col text-center"">
-                <a href="{{url('/cadastrar')}}">
+                <a href="{{url('/access')}}">
                     <button class="btn btn-success">Cadastrar</button>
                 </a>
             </div>
@@ -36,14 +36,14 @@
                             </a>
                             @foreach ($validA as $act)
                                 @if($act == 'edit')
-                                    <a href="{{url("cadastrar/$user->id/edit")}}">
+                                    <a href='{{url("access/$user->id/edit")}}'>
                                         <button class="btn btn-primary">Editar</button>
                                     </a>
                                 @endif
                             @endforeach
                             @foreach ($validA as $act)
                                 @if($act == 'delete')
-                                    <a href="{{url("cadastrar/$user->id/delete")}}" class="js-del" >
+                                    <a href="{{url("access/$user->id/delete")}}" class="js-del" >
                                         <button class="btn btn-danger" >Delete</button>
                                     </a>
                                 @endif

@@ -11,14 +11,14 @@
                 <h4>Criar Conta</h4>
             </div>
            
-            <form action="@if (isset($user)) {{url("/cadastrar/$user->id/edit")}} @else {{url("/cadastrar/create")}} @endif" method="post">
+            <form action='@if (isset($user)) {{url("/access/$user->id/edit")}} @else {{url("/access/create")}} @endif' method="post">
             @csrf
             <div class="col">
                 <small style="color: red">{{$erro}}</small>
-                <input value="@if(isset($user)){{$user->name}}@endif" name="name" type="text" placeholder="Nome" class="form-control" required >
+                <input value="@if(isset($_POST['name'])){{$_POST['name']}} @endif" name="name" type="text" placeholder="Nome" class="form-control" required >
             </div>
             <div class="col mt-2">
-                <input value="@if(isset($user)){{$user->email}}@endif" name="email" type="email" placeholder="email" class="form-control" required>
+                <input value="@if(isset($_POST['email'])){{$_POST['email']}} @endif" name="email" type="email" placeholder="email" class="form-control" required>
             </div>
             @if (!isset($user))
             <div class="col mt-2">
@@ -27,14 +27,14 @@
             <div class="col mt-2">
                 <input value="@if(isset($user)){{$user->password}}@endif" name="repetPassword" id="repetPassword" type="password" placeholder="Repetir Senha" class="form-control" required>
             </div>
-            <div class="col mt-4 ms-4">
-                <input class="form-check-input" type="radio" id="u_planType" name="u_planType" checked> Plano free
+            <div class="col  mt-4">
+                <b><small id="erro-email"></small></b>
             </div>
-            <div class="col-12 mt-4">
-                <b><small role="alert" id="erro-email"></small></b>
+            <div class="col mt-4 ms-4">
+                <input value="free" class="form-check-input" type="radio" id="u_planType" name="u_planType" checked> Plano free
             </div>
             <div class="col mt-4">
-                <input type="checkbox" required="" name="terms">
+                <input type="checkbox" required="" value='S' name="u_agreementEulaPrivacity">
                 Confirmo que li e aceito os 
                     <a href="/eula" target="_blank">Termos de Uso</a>
                 e a 
@@ -85,11 +85,12 @@
                 }else{
                     $('#btn-create').prop('disabled',true)
                     $('#erro-email').html('As senhas devem ser iguais!')
+                    $('#erro-email').attr('class', 'alert alert-danger d-flex flex-grow-1')
+
                     console.log('diferente')
                 }
             }else{
                     $('#btn-create').prop('disabled',true)
-                    $('#erro-email').attr('class', 'alert alert-danger')
 
                     $('#erro-email').html('')
 

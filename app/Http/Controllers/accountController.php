@@ -53,13 +53,23 @@ class accountController extends Controller
         
     }
 
-    public function accountEdit(AccountRequest $request = null)
+    public function accountEdit($updated = null)
     {
         if($this->auth->validation()){
 
             $user = $this->users->find($_SESSION['id']);
             $nacionality = $this->nacionality;
-            return view('accountEdit', compact('user', 'nacionality'));
+            $msg = null;
+
+            if($updated){
+                $msg = 'Dados Atualizados com sucesso';
+            }
+
+            return view('accountEdit', 
+            compact('user', 'nacionality'),
+            [
+                'msg' => $msg
+            ]);
                     
         }else{
 
@@ -68,10 +78,10 @@ class accountController extends Controller
         }
         
     }
-    public function accountUpdate(AccountRequest $request)
+    public function accountUpdate(AccountRequest $request, $id)
     {
-        if($this->auth->validation()){
-            $this->users->where(['id' => $_SESSION['id']])->update([
+
+            $update = $this->users->where(['id' => $id])->update([
                 'u_name' => $request->u_name,   
                 'u_email' => $request->u_email,
                 'u_phone' => $request->u_phone,
@@ -86,15 +96,11 @@ class accountController extends Controller
                 'u_address' => $request->u_address ,
     
             ]);
-
-            return redirect('/account/edit');
-                    
-        }else{
-
-            return $this->auth->redirectToLogin();
-
-        }
-        
+            if($update){
+                return $this->accountEdit(true);
+            }
+            
+       
     }
 
     public function accountConfig(AccountRequest $request = null)
@@ -111,16 +117,6 @@ class accountController extends Controller
         
     }
 
-    public function accountDelete(AccountRequest $request = null)
-    {
-        if($this->auth->validation()){
-
-            return view('accountEdit');
-                    
-        }else{
-                return $this->auth->redirectToLogin();
-        }
-    }
 
 
 }

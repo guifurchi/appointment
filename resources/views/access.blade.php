@@ -6,7 +6,7 @@
 
 @include('layouts.partials.top')
 
-@include('layouts.components.form_consulta')
+@include('layouts.components.user.add_access')
 
 @include('layouts.partials.footer')
 

@@ -25,25 +25,6 @@ use App\Http\Controllers\accountController;
 */
 
 Route::get('/', [indexController::class, 'index']);
-Route::get('/mainPage', [indexController::class, 'mainPage']);
-Route::get('/QRcode', [apiController::class, 'index']);
-
-
-//rotas do CRUD de consulta
-Route::get('/consulta', [consultaController::class, 'index']);
-Route::post('/consulta/create', [consultaController::class, 'create']);
-Route::put('/consulta/{id}/edit', [consultaController::class, 'update']);
-Route::get('/consulta/{id}/delete', [consultaController::class, 'destroy']);
-
-
-//rotas de consulta de 
-Route::get('/consultaQuery', [consultaController::class, 'consultaQuery']);
-Route::get('/showDetails/{id}', [consultaController::class, 'showDetails']);
-Route::get('/consulta/{id}/edit/', [consultaController::class, 'edit']);
-
-
-//rotas para tratar dados
-Route::get('/import', [importController::class, 'index']);
 
 //appointments
 Route::get('/panel', [appointmentController::class, 'panel']);
@@ -87,16 +68,17 @@ Route::get('/integrations/site', [integrationController ::class, 'integrationSit
 Route::get('/account', [accountController::class, 'index']);
 Route::get('/account/add', [accountController ::class, 'accountAdd']);
 Route::get('/account/edit', [accountController ::class, 'accountEdit']);
-Route::post('/account/update', [accountController ::class, 'accountUpdate']);
+Route::post('/account/edit/{id}', [accountController ::class, 'accountUpdate']);
 Route::get('/account/config', [accountController ::class, 'accountConfig']);
-Route::get('/account/delete', [accountController ::class, 'accountDelete']);
 
 //CRUD user
-Route::get('/cadastrar', [UserController::class, 'index']);
-Route::get('/cadastrar/create', [UserController::class, 'newUserPage']);
-Route::post('/cadastrar/create', [UserController::class, 'create']);
-Route::post('/cadastrar/{id}/edit', [UserController::class, 'update']);
-Route::get('/cadastrar/{id}/delete', [UserController::class, 'destroy']);
+Route::get('/access', [UserController::class, 'index']);
+Route::get('/access/create', [UserController::class, 'newUserPage']);
+Route::post('/access/create', [UserController::class, 'create']);
+Route::post('/access/{id}/edit', [UserController::class, 'update']);
+Route::post('/access/{id}/delete', [UserController::class, 'destroy']);
+
+Route::get('/confirm/{action}', [indexController::class, 'confirmAction']);
 
 //Queries user
 Route::get('/usuarios', [UserController::class, 'usersQuery']);
@@ -104,7 +86,7 @@ Route::get('/showUser/{id}', [UserController::class, 'showUser']);
 Route::get('/cadastrar/{id}/edit', [UserController::class, 'edit']);
 
 //change password
-Route::get('/password/{id}', [UserController::class, 'editPassword']);
+Route::get('/password', [UserController::class, 'editPassword']);
 Route::post('/password/{id}/edit', [UserController::class, 'validPassword']);
 
 //login and logout
