@@ -27,29 +27,24 @@
                                   <th>Valor do Serviço</th>
                                   <th>Mostrar Valor</th>
                                   <th>Duração do serviço</th>
-                                  <th>Pessoas por Horário</th>
-                                  <th>Agendas</th>
-                                  <th>Tags</th>
-                                  <th>Usuários</th>
                                   <th>Ações</th>
                               </tr>
                             </thead>
                             <tbody>
+                            @foreach($services as $service)
+                            @csrf
                               <tr>
-                                  <td>atendimento nutricional</td>
-                                  <td>R$ 300,00</td>
-                                  <td>Sim</td>
-                                  <td>0:05:00</td>
-                                  <td>1</td>
-                                  <td>0</td>
-                                  <td>0</td>
-                                  <td>0</td>
+                                  <td>{{$service->s_name}}</td>
+                                  <td>{{$service->s_value}}</td>
+                                  <td>@if($service->s_showValuesToCustomers){{$service->s_showValuesToCustomers}}@else Não @endif</td>
+                                  <td>{{$service->s_serviceTime}}</td>
                                   <td>
                                     <a href="/appointments/services/events/{id}" title="Ver Agenda" target="_blank"><i class="icon-calendar font-medium-3 mr-2"></i></a>
-                                    <a class="success p-0" data-original-title="" title="" href="/services/edit/{id}"><span data-toggle="tooltip" data-placement="right" title="Editar Serviço"><i class="icon-edit font-medium-3 mr-2"></i></span></a>
-                                    <a class="danger p-0" data-original-title="" title="" href="/services/delete/{id}"><span data-toggle="tooltip" data-placement="right" title="Excluir Serviço"><i class="icon-trash font-medium-3 mr-2"></i></span></a>
+                                    <a class="success p-0" href="/services/edit/{{$service->id}}"><span data-toggle="tooltip" data-placement="right" title="Editar Serviço"><i class="icon-edit font-medium-3 mr-2"></i></span></a>
+                                    <a class="danger p-0" onclick="action('{{$service->id}}','destroy')"><span data-toggle="tooltip" data-placement="right" title="Excluir Serviço"><i class="icon-trash font-medium-3 mr-2"></i></span></a>
                                   </td>
                               </tr>
+                              @endforeach
                             </tbody>
                           </table>
                           <ul class="pagination">
@@ -106,3 +101,51 @@
               </section>
             </div>
           </div>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+@if ($msg != NULL)
+<script>
+swal(
+    'Parabéns!',
+    '{{$msg}}',
+    'success')
+</script>
+@endif
+
+<script>
+
+function action(id,action){
+
+    var token = $("input[name=_token]").val()
+    var message = "Você tem certeza que deseja encerrar a sua conta?"
+    console.log("/services/delete/"+id)
+    swal({
+          title: "Confirmar",
+          text: message,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#0CC27E',
+          cancelButtonColor: '#FF586B',
+          confirmButtonText: 'Sim',
+          cancelButtonText: "Não"
+        }).then(function (isConfirm) {
+          if (isConfirm) {
+
+            $.ajax({
+            url: "/services/delete/"+id,
+            type: 'post',
+            data: {
+                "id": id,
+                "_token": token,
+            },
+              success: function (){
+                document.location.reload();
+              }
+            })
+          }
+      })
+   
+};
+
+</script>
+

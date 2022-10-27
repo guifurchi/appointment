@@ -44,8 +44,10 @@ Route::get('/appointments/holiday/edit/{id}', [appointmentController::class, 'ap
 //services
 Route::get('/services', [serviceController::class, 'index']);
 Route::get('/services/add', [serviceController::class, 'serviceAdd']);
-Route::get('/services/edit/{id}', [serviceController::class, 'serviceEdit']);
-Route::get('/services/delete/{id}', [serviceController::class, 'serviceDestroy']);
+Route::post('/services/create/{id}', [serviceController::class, 'create']);
+Route::get('/services/edit/{id}', [serviceController::class, 'edit']);
+Route::post('/services/update/{id}', [serviceController::class, 'update']);
+Route::post('/services/delete/{id}', [serviceController::class, 'destroy']);
 
 //clients
 Route::get('/clients', [clientController::class, 'index']);
@@ -67,34 +69,28 @@ Route::get('/integrations/site', [integrationController ::class, 'integrationSit
 //account
 Route::get('/account', [accountController::class, 'index']);
 Route::get('/account/add', [accountController ::class, 'accountAdd']);
-Route::get('/account/edit', [accountController ::class, 'accountEdit']);
-Route::post('/account/edit/{id}', [accountController ::class, 'accountUpdate']);
+Route::get('/account/edit', [accountController ::class, 'accountEdit']);//ok
+Route::post('/account/edit/{id}', [accountController ::class, 'accountUpdate']);//ok
 Route::get('/account/config', [accountController ::class, 'accountConfig']);
 
-//CRUD user
+//CRUD user/accsess
 Route::get('/access', [UserController::class, 'index']);
-Route::get('/access/create', [UserController::class, 'newUserPage']);
-Route::post('/access/create', [UserController::class, 'create']);
-Route::post('/access/{id}/edit', [UserController::class, 'update']);
-Route::post('/access/{id}/delete', [UserController::class, 'destroy']);
+Route::get('/access/create', [UserController::class, 'newUserPage']);//ok
+Route::post('/access/create', [UserController::class, 'create']);//ok
+Route::post('/access/{id}/edit', [UserController::class, 'update']);//ok
+Route::post('/access/{id}/delete', [UserController::class, 'destroy']);//ok
 
-Route::get('/confirm/{action}', [indexController::class, 'confirmAction']);
-
-//Queries user
-Route::get('/usuarios', [UserController::class, 'usersQuery']);
-Route::get('/showUser/{id}', [UserController::class, 'showUser']);
-Route::get('/cadastrar/{id}/edit', [UserController::class, 'edit']);
+Route::get('/confirm/{action}', [indexController::class, 'confirmAction']);//ok
 
 //change password
-Route::get('/password', [UserController::class, 'editPassword']);
-Route::post('/password/{id}/edit', [UserController::class, 'validPassword']);
+Route::get('/password', [UserController::class, 'editPassword']);//ok
+Route::post('/password/{id}/edit', [UserController::class, 'validPassword']);//ok
 
 //login and logout
-Route::post('/login', [authController::class, 'auth']);//mudar para auth
-Route::get('/logout', [authController::class, 'logout']);
-
+Route::post('/login', [authController::class, 'auth']);//ok
+Route::get('/logout', [authController::class, 'logout']);//ok
 
 //privacity , eula
-Route::get('/eula', [UserController::class, 'eula']);
-Route::get('/privacity', [UserController::class, 'privacity']);
+Route::get('/eula', [UserController::class, 'eula']);//ok
+Route::get('/privacity', [UserController::class, 'privacity']);//ok
 

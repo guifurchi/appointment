@@ -170,7 +170,7 @@
                 <h4 class="form-section"><i class="icon-trash"></i> Encerrar Conta</h4>
                   Encerre esta conta na eAgenda. Essa ação não pode ser desfeita e todos os dados relacionados a seu usuários serão excluídos, inclusive agendamentos e dados de configuração.<br><br>
                   <div class="form-actions right">
-                    <button id="btn-delete" onclick="action('{{$user->id}}','destroy')" data-id="{{$_SESSION['id']}}" class="btn btn-danger"> <i class="fa fa-trash"></i> Encerrar Conta</button>
+                    <button id="btn-delete" onclick="action('{{$user->id}}','destroy')" class="btn btn-danger"> <i class="fa fa-trash"></i> Encerrar Conta</button>
                   </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InspectRequest extends FormRequest
+class ServiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,7 @@ class InspectRequest extends FormRequest
     public function rules()
     {
         return [
-            'qrcode' => 'required'
+            //
         ];
     }
-
-    public function messages()
-{
-    return [
-        'qrcode.required' => 'Favor inserir o Qrcode.',
-    ];
-}
 }

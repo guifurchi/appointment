@@ -10,44 +10,53 @@
               <div class="card" data-select2-id="select2-data-8-vvtd">
                 <div class="card-content">
                   <div class="card-body"><div id="err_msg"></div>
-                    <form method="POST" class="post-form" data-gtm-form-interact-id="0"><input type="hidden" name="csrfmiddlewaretoken" value="68EPe6Gt9OXlwkHBGGIzFM012KBhTFezxIp0SCp7vsLAJtjAKM88ElcYiYM9PhYC">
+
+                    <form method="post" action="@if(isset($services)) /services/update/{{$services->id}} @else /services/create/{{$_SESSION['id']}} @endif">
+                      @csrf
                       <div class="form-body" data-select2-id="select2-data-7-yj2i">
                         <h4 class="form-section"><i class="icon-lock"></i>Dados do Serviço</h4>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="id_label">Nome do Serviço:</label>
-                              <input type="text" name="label" maxlength="250" id="id_label" class="form-control " data-gtm-form-interact-field-id="0">
+                              <label for="s_name">Nome do Serviço:</label>
+                              <input value="@if(isset($services)){{$services->s_name}}@endif" type="text" name="s_name" maxlength="250" id="s_name" class="form-control " data-gtm-form-interact-field-id="0" required>
                             </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="id_valor">Valor do Serviço:</label>
-                              <input type="number" name="valor" step="0.01" id="id_valor" class="form-control " data-gtm-form-interact-field-id="1">
+                              <label for="s_value">Valor do Serviço:</label>
+                              <input value="@if(isset($services)){{$services->s_value}}@endif" type="number" name="s_value" step="0.01" id="s_value" class="form-control " data-gtm-form-interact-field-id="1" required>
                             </div>
                           </div>
+
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="id_b_valor">Mostrar valor do serviço para os clientes:</label>
-                              <input type="checkbox" name="b_valor" id="id_b_valor" class="custom-checkbox" data-gtm-form-interact-field-id="2">
+                              <label for="s_showValuesToCustomers">Mostrar valor do serviço para os clientes:</label>
+                              <input type="checkbox" name="s_showValuesToCustomers" id="s_showValuesToCustomers" value="Sim" class="custom-checkbox" @if((isset($services->s_showValuesToCustomers) == 's')){{'checked'}}@endif >
                             </div>
                           </div>
+
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="id_link_pagamento">Caso você faça cobrança por link de pagamento, pode incluir o link aqui para o cliente já fazer o pagamento:</label>
-                              <input type="text" name="link_pagamento" maxlength="2000" id="id_link_pagamento" class="form-control ">
+                              <label for="s_paymentLink">Caso você faça cobrança por link de pagamento, pode incluir o link aqui para o cliente já fazer o pagamento:</label>
+                              <input value="@if(isset($services)){{$services->s_paymentLink}}@endif" type="text" name="s_paymentLink" maxlength="2000" id="s_paymentLink" class="form-control " >
                             </div>
                           </div>
+
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="id_att_interval">Duração do Atendimento:</label>
-                              <select name="att_interval" id="id_att_interval" class="form-control " data-gtm-form-interact-field-id="3">
+                              <label for="s_serviceTime">Duração do Atendimento:</label>
+                              <select name="s_serviceTime" id="s_serviceTime" class="form-control " data-gtm-form-interact-field-id="3" required>
+                                @if(isset($services->s_serviceTime) != null)
+                                <option value="{{$services->s_serviceTime}}" selected>{{$services->s_serviceTime}}</option>
+                                <option value="">-----------</option>
+                                @endif
                                 <option value="0:05:00">00:05</option>
                                 <option value="0:10:00">00:10</option>
                                 <option value="0:15:00">00:15</option>
                                 <option value="0:20:00">00:20</option>
-                                <option value="0:30:00" selected="">00:30</option>
+                                <option value="0:30:00">00:30</option>
                                 <option value="0:40:00">00:40</option>
                                 <option value="0:45:00">00:45</option>
                                 <option value="0:50:00">00:50</option>
@@ -70,6 +79,7 @@
                               </select>
                             </div>
                           </div>
+
                           <!--
                           <div class="col-md-6">
                             <div class="form-group">
@@ -77,13 +87,15 @@
                               <input type="number" name="max_people_subtype" min="1" id="id_max_people_subtype" class="form-control ">
                             </div>
                           </div>
-  -->
+                           -->
+
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="id_texto_pos_agendamento">Texto com instruções exibidas na tela de confirmação do agendamento e no e-mail de confirmação:</label>
-                              <textarea name="texto_pos_agendamento" cols="40" rows="10" maxlength="2000" id="id_texto_pos_agendamento" class="form-control "></textarea>
+                              <label for="s_instruction">Texto com instruções exibidas na tela de confirmação do agendamento e no e-mail de confirmação:</label>
+                              <textarea value="" name="s_instruction" cols="40" rows="10" maxlength="2000" id="id_texto_pos_agendamento" class="form-control ">@if(isset($services)){{$services->s_instruction}}@endif</textarea>
                             </div>
                           </div>
+
                           <!--
                           <div class="col-md-6">
                             <div class="form-group">
@@ -92,7 +104,8 @@
                             </div>
                           </div>
                         </div>
-  -->
+                        -->
+
                         <!--
                         <h4 class="form-section"><i class="icon-link"></i>Agendas Vinculadas</h4>
                         <div class="row" data-select2-id="select2-data-6-awk7">
@@ -128,8 +141,8 @@
                       </div>
                         -->
                       
-                      <button type="submit" class="btn btn-success">Salvar</button>
-                      <a href="/services/" class="btn btn-outline-secondary" role="button">Voltar</a>
+                      <button type="submit" class="btn btn-success">@if(isset($services)) Alterar @else Salvar @endif</button>
+                      <a href="/services" class="btn btn-outline-secondary" role="button">Voltar</a>
                     </form>
                   </div>
                 </div>

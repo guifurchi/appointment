@@ -11,11 +11,11 @@ use App\Models\User;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\InspecaoController;
 use Illuminate\Auth\Events\Authenticated;
 use App\Http\Controllers\authController;
 use \App\Http\Requests\UserRequest;
 use App\Models\Nivel;
+
 
 
 class userController extends Controller
@@ -116,22 +116,6 @@ class userController extends Controller
 
     }
 
-    public function edit($id)
-    {
-        if($this->valid->validation()){
-            $user = $this->user->find($id);
-            $level = DB::table('nivel')->get();
-
-            return view('access', compact(['user','level']), [
-                'title' => 'Alterar Usuário', 
-                'action' => 'Novos dados do Usuário',
-                'erro' => ''
-            ]);
-
-        }else{
-            return $this->valid->redirectToLogin();
-        }
-    }
 
     public function update(Request $request, $id)
     {
