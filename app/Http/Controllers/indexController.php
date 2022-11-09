@@ -35,21 +35,6 @@ class indexController extends Controller
             ]);
 
         }
-
-
 }
 
-    public function mainPage()
-    {
-
-        if($this->valid->validation()){
-            return view('mainPage', [
-                'title' => 'Sistema de Agendamento de Consultas', 
-                'action' => '',
-                'erro' => ''
-            ]);
-        }else{
-            return $this->valid->redirectToLogin();
-        }
-    }
 }

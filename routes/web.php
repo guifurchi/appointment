@@ -28,9 +28,13 @@ Route::get('/', [indexController::class, 'index']);
 
 //appointments
 Route::get('/panel', [appointmentController::class, 'panel']);
-Route::get('/panel/config', [appointmentController::class, 'panelConfig']);
-Route::get('/appointments', [appointmentController::class, 'appointments']);
+Route::get('/appointments', [appointmentController::class, 'index']);
 Route::get('/appointments/config', [appointmentController::class, 'appointmentConfig']);
+Route::post('/appointments/create/{id}', [appointmentController::class, 'appointmentCreate']);
+Route::get('/appointments/edit/{id}', [appointmentController::class, 'appointmentEdit']);
+Route::post('/appointments/update/{id}', [appointmentController::class, 'appointmentUpdate']);
+Route::post('/appointments/delete/{id}', [appointmentController::class, 'appointmentDelete']);
+
 Route::get('/appointments/config/page', [appointmentController::class, 'appointmentConfigPage']);
 Route::get('/appointments/list', [appointmentController::class, 'appointmentList']);
 Route::get('/appointments/link', [appointmentController::class, 'appointmentLink']);
@@ -47,20 +51,26 @@ Route::get('/services/add', [serviceController::class, 'serviceAdd']);
 Route::post('/services/create/{id}', [serviceController::class, 'create']);
 Route::get('/services/edit/{id}', [serviceController::class, 'edit']);
 Route::post('/services/update/{id}', [serviceController::class, 'update']);
-Route::post('/services/delete/{id}', [serviceController::class, 'destroy']);
+Route::post('/services/delete/{id}', [serviceController::class, 'delete']);
 
 //clients
 Route::get('/clients', [clientController::class, 'index']);
 Route::get('/clients/add', [clientController::class, 'clientAdd']);
 Route::get('/clients/list', [clientController::class, 'clientList']);
 
-//communications
+//communications notify
 Route::get('/communications', [communicationController::class, 'index']);
 Route::get('/communications/notify', [communicationController::class, 'communicationNotify']);
-Route::get('/communications/notify/add', [communicationController::class, 'communicationNotifyAdd']);
+Route::get('/communications/notify/add', [communicationController::class, 'communicationNotifyCreate']);
+Route::get('/communications/notify/edit', [communicationController::class, 'communicationNotifyEdit']);
+Route::post('/communications/notify/update/{id}', [communicationController::class, 'communicationNotifyUpdate']);
+Route::post('/communications/notify/delete/{id}', [communicationController::class, 'communicationNotifyDelete']);
+//communications Email
 Route::get('/communications/email', [communicationController::class, 'communicationEmail']);
-Route::get('/communications/email/add', [communicationController::class, 'communicationEmailAdd']);
+Route::get('/communications/email/add', [communicationController::class, 'communicationEmailCreate']);
 Route::get('/communications/email/edit', [communicationController::class, 'communicationEmailEdit']);
+Route::get('/communications/email/update/{id}', [communicationController::class, 'communicationEmailUpdate']);
+Route::get('/communications/email/delete/{id}', [communicationController::class, 'communicationEmailDelete']);
 
 //integration
 Route::get('/integrations', [integrationController::class, 'index']);

@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\authController;
 use App\Models\User;
 $user = new User();
 $user = $user->find($_SESSION['id']);

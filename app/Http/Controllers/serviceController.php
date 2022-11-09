@@ -63,21 +63,29 @@ class serviceController extends Controller
 
     public function create(ServiceRequest $request, $id)
     {
+        if($this->auth->validation()){
 
-            $service = $this->service;
+            $services = $this->service;
             $user = $this->users->find($id);
 
-            $service->user_id = $user->id;
-            $service->s_name = $request->input('s_name');
-            $service->s_value = $request->input('s_value');
-            $service->s_showValuesToCustomers = $request->input('s_showValuesToCustomers');
-            $service->s_paymentLink = $request->input('s_paymentLink');
-            $service->s_serviceTime = $request->input('s_serviceTime');
-            $service->s_instruction = $request->input('s_instruction');
+            $services->user_id = $user->id;
+            $services->s_name = $request->input('s_name');
+            $services->s_value = $request->input('s_value');
+            $services->s_showValuesToCustomers = $request->input('s_showValuesToCustomers');
+            $services->s_paymentLink = $request->input('s_paymentLink');
+            $services->s_serviceTime = $request->input('s_serviceTime');
+            $services->s_instruction = $request->input('s_instruction');
 
-            $service = $service->save();
+            $services = $services->save();
 
             return redirect('/services');
+            
+        }else{
+
+            return $this->valid->redirectToLogin();
+
+        }
+
 
 
     }
@@ -87,7 +95,7 @@ class serviceController extends Controller
         
         if($this->auth->validation()){
 
-            $services = $this->service->find($id);
+            $servicess = $this->service->find($id);
 
             return view('serviceAdd', compact('services'));
           
@@ -115,7 +123,7 @@ class serviceController extends Controller
 
     }
 
-    public function destroy($id)
+    public function delete($id)
     {  
         
         if($this->auth->validation()){

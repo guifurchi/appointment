@@ -36,22 +36,31 @@
                               </tr>
                             </thead>
                             <tbody>
+                              @foreach($appointments as $appointment)
+                              @csrf
+
                               <tr>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
+                                  <td>{{$appointment->name}}</td>
+                                  <td>{{$appointment->status}}</td>
                                   <td>
-                                    <a href="/appointments/eventos/1872/servico/" title="Ver Agenda" target="_blank"><i class="icon-calendar font-medium-3 mr-2"></i></a>
-                                    <a class="success p-0" data-original-title="" title="" href="/appointments/edit/{id}"><span data-toggle="tooltip" data-placement="right" title="Editar Serviço"><i class="icon-edit font-medium-3 mr-2"></i></span></a>
-                                    <a class="danger p-0" data-original-title="" title="" href="/appointments/delete/{id}"><span data-toggle="tooltip" data-placement="right" title="Excluir Serviço"><i class="icon-trash font-medium-3 mr-2"></i></span></a>
+                                    @foreach($services_appointments as $services)
+                                      @if($appointment->id == $services->appointment_id)
+                                        {{$services->s_name}} / 
+                                      @endif
+                                    @endforeach
+                                  </td>
+                                  <td>{{$appointment->cancel_minimum_time_aux}}</td>
+                                  <td>{{$appointment->time_after}}</td>
+                                  <td>{{$appointment->time_between}}</td>
+                                  <td>{{$appointment->b_confirmar}}</td>
+                                  <td>{{$appointment->request_email}}</td>
+                                  <td>{{$appointment->request_telefone}}</td>
+                                  <td>
+                                    <a class="success p-0" data-original-title="" title="" href="/appointments/edit/{{$appointment->id}}"><span data-toggle="tooltip" data-placement="right" title="Editar Serviço"><i class="icon-edit font-medium-3 mr-2"></i></span></a>
+                                    <a class="danger p-0" data-original-title="" onclick="action('{{$appointment->id}}','destroy')"><span data-toggle="tooltip" data-placement="right" title="Excluir Serviço"><i class="icon-trash font-medium-3 mr-2"></i></span></a>
                                   </td>
                               </tr>
+                              @endforeach
                             </tbody>
                           </table>
                           <ul class="pagination">
@@ -108,3 +117,55 @@
               </section>
             </div>
           </div>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+@if (session('msg') != NULL)
+<script>
+swal(
+    'Parabéns!',
+    "{{session('msg')}}",
+    'success')
+</script>
+@endif
+
+<script>
+
+function action(id,action){
+
+    var token = $("input[name=_token]").val()
+    var message = "Você tem certeza que deseja encerrar a sua conta?"
+    console.log("/appointments/delete/"+id)
+    console.log(token)
+    swal({
+          title: "Confirmar",
+          text: message,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#0CC27E',
+          cancelButtonColor: '#FF586B',
+          confirmButtonText: 'Sim',
+          cancelButtonText: "Não"
+        }).then(function (isConfirm) {
+          if (isConfirm) {
+
+            $.ajax({
+            url: "/appointments/delete/"+id,
+            type: 'post',
+            data: {
+                "id": id,
+                "_token": token,
+            },
+              success: function (){
+                document.location.reload(3000);
+                swal(
+                  'Parabéns!',
+                  "Registro exclído com sucesso!",
+                  'success')
+              }
+            })
+          }
+      })
+   
+};
+
+</script>

@@ -37,7 +37,7 @@ class communicationController extends Controller
 
     }
 
-    public function communicationNotify(ConsultaRequest $request = null)
+    public function communicationNotify()
     {
         if($this->auth->validation()){
 
@@ -52,7 +52,7 @@ class communicationController extends Controller
     
     }
 
-    public function communicationNotifyAdd(ConsultaRequest $request = null)
+    public function communicationNotifyCreate()
     {
         if($this->auth->validation()){
 
@@ -67,7 +67,7 @@ class communicationController extends Controller
     
     }
 
-    public function communicationEmail(ConsultaRequest $request = null)
+    public function communicationEmail()
     {
         if($this->auth->validation()){
 
@@ -82,7 +82,7 @@ class communicationController extends Controller
     
     }
 
-    public function communicationEmailAdd(ConsultaRequest $request = null)
+    public function communicationEmailCreate()
     {
         if($this->auth->validation()){
 
@@ -97,11 +97,20 @@ class communicationController extends Controller
     
     }
 
-    public function communicationEmailEdit(ConsultaRequest $request = null)
+    public function communicationEmailEdit()
+    {
+    if ($this->auth->validation()) {
+        return view('communicationEmailEdit');
+    } else {
+        return $this->auth->redirectToLogin();
+    }
+}
+
+    public function communicationEmailDelete()
     {
         if($this->auth->validation()){
 
-            return view('communicationEmailEdit');
+            return view('communicationEmailDelete');
             
         }else{
 

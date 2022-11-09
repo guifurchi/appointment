@@ -30,11 +30,8 @@ $("#subtypes").val(selected_sub_type)
           </div>
           <div class="card-content">
             <div class="card-body">
-              <form class="form" method="post" onsubmit="loading()">
-              <input type="hidden" name="csrfmiddlewaretoken" value="fN9aGzGB6sooYR5g8K19nTDaV6of3IwoGnUlk5pfs6cDb0HfcQrImsP7bkz7Zkgr">
-              </form>
-              <form class="form" method="post" onsubmit="loading()" enctype="multipart/form-data">
-                <input type="hidden" name="csrfmiddlewaretoken" value="fN9aGzGB6sooYR5g8K19nTDaV6of3IwoGnUlk5pfs6cDb0HfcQrImsP7bkz7Zkgr">
+              <form class="form" method="post" action="<?= isset($appointments) ? "/appointments/update/{$appointments->id}" : "/appointments/create/{$_SESSION['id']}" ?>">
+              @csrf
                 <div class="form-body">
                   <h4 class="form-section"><i class="icon-list-alt"></i>Configurações Gerais</h4>
 
@@ -42,7 +39,7 @@ $("#subtypes").val(selected_sub_type)
                       <div class="col-md-6 ms-2">
                         <div class="form-group ">
                           <label for="id_label">Nome da Agenda:</label>
-                          <input type="text" name="label" value="" maxlength="250" class="form-control" id="id_label">
+                          <input type="text" name="name" value="<?= isset($appointments) ? $appointments->name : ''?>" maxlength="250" class="form-control" id="id_label">
                         <!--<div>Esse é o nome que aparece para o cliente no momento do agendamento. Dica: use o nome do profissional que atende essa agenda ou um nome mais geral. Dentro de cada agenda podem ser incluídos vários serviços</div>-->
                         </div>
                       </div>
@@ -63,7 +60,7 @@ $("#subtypes").val(selected_sub_type)
                   <div class="row mt-2">
                     <div class="col-md-6 ms-2">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" onclick="change_video(event)" name="presential" id="id_presential" checked>
+                        <input class="form-check-input" type="checkbox" role="switch" onclick="change_video(event)" name="presential" id="id_presential" <?= isset($appointments) && $appointments->presential == 'on' ? 'checked' : '' ?>>
                         <label class="form-check-label" for="id_presential"><label for="id_presential">Atendimento Presencial:</label></label>
                       </div>
                     </div>
@@ -72,7 +69,7 @@ $("#subtypes").val(selected_sub_type)
                   <div class="row mt-2">
                     <div class="col-md-6 ms-2">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" onclick="change_video(event)" name="video" id="id_video" checked>
+                        <input class="form-check-input" type="checkbox" role="switch" onclick="change_video(event)" name="video" id="id_video" <?= isset($appointments) && $appointments->video == 'on' ? 'checked' : '' ?>>
                         <label class="form-check-label" for="id_video"><label for="id_video">Atendimento Remoto (video conferência):</label></label>
                       </div>
                     </div>
@@ -82,9 +79,12 @@ $("#subtypes").val(selected_sub_type)
                     <div class="col-md-3 ms-2">
                       <label>Plataforma de Videoconferência:</label>
                       <select name="video_provider" id="id_video_provider" class="form-control">
-                        <option value="" selected="">---------</option>
-                        <option value="meet">Google Meet</option>
-                        <option value="teams">Microsoft Teams</option>
+                        @if(isset($appointments) && $appointments->video_provider != '')
+                        <option value="{{$appointments->video_provider}}" selected >{{$appointments->video_provider}}</option>
+                        @endif
+                        <option value="" >---------</option>
+                        <option value="Google Meet" >Google Meet</option>
+                        <option value="Microsoft Teams">Microsoft Teams</option>
                         <option value="zoom">Zoom</option>
                         <option value="other">Outros</option>
                       </select>
@@ -95,7 +95,7 @@ $("#subtypes").val(selected_sub_type)
                   <div class="row mt-2">
                     <div class="col-md-12 ms-2"><br>
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" name="is_hybrid" id="id_is_hybrid" checked>
+                        <input class="form-check-input" type="checkbox" role="switch" name="is_hybrid" id="id_is_hybrid" <?= isset($appointments) && $appointments->is_hybrid == 'on' ? 'checked' : '' ?>>
                         <label class="form-check-label" for="id_is_hybrid">
                           <label for="id_is_hybrid">Flexível:</label>
                         </label>
@@ -107,7 +107,7 @@ $("#subtypes").val(selected_sub_type)
                   <div class="row mt-2">
                     <div class="col-md-12 ms-2">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" name="att_local" id="id_att_local">
+                        <input class="form-check-input" type="checkbox" role="switch" name="att_local" id="id_att_local" <?= isset($appointments) && $appointments->att_local == 'on' ? 'checked' : '' ?> >
                         <label class="form-check-label" for="id_att_local">
                           <label for="id_att_local">Atendimento em domicílio:</label>
                         </label>
@@ -157,7 +157,7 @@ $("#subtypes").val(selected_sub_type)
                   <div class="row mt-2">
                     <div class="col-md-12 ms-2">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" name="b_confirmar" id="id_b_confirmar" checked="">
+                        <input class="form-check-input" type="checkbox" role="switch" name="b_confirmar" id="id_b_confirmar" <?= isset($appointments) && $appointments->b_confirmar == 'on' ? 'checked' : '' ?>>
                         <label class="form-check-label" for="id_b_confirmar">
                           <label for="id_b_confirmar">Confirmação de appointments:</label></label>
                       </div>
@@ -205,7 +205,7 @@ $("#subtypes").val(selected_sub_type)
                     <div class="col-md-12 ms-2">
                       <div class="form-group">
                         <label for="id_pass_agenda">Senha para Agendamento:</label>
-                          <input type="text" name="pass_agenda" value="" maxlength="15" class="form-control col-md-2" id="id_pass_agenda">
+                          <input type="text" name="pass_agenda" value="<?= isset($appointments) ? $appointments->pass_agenda : ''?>" maxlength="15" class="form-control col-md-2" id="id_pass_agenda">
                           <small>Opcional (Somente os clientes que tiverem essa senha podem fazer o agendamento. Deixe o campo em branco para permitir agendamento sem senha)</small>
                       </div>
                     </div>
@@ -215,7 +215,7 @@ $("#subtypes").val(selected_sub_type)
                     <div class="col-md-12 ms-2">
                       <div class="form-group">
                         <label>Prazo para Cancelamento (em horas)</label>
-                            <input type="number" name="cancel_minimum_time_aux" value="" class="form-control col-md-2" id="id_cancel_minimum_time_aux">
+                            <input type="number" name="cancel_minimum_time_aux" value="<?= isset($appointments) ? $appointments->cancel_minimum_time_aux : ''?>" class="form-control col-md-2" id="id_cancel_minimum_time_aux">
                         <span class="help-block"><small>Prazo máximo para que uma pessoa possa cancelar o agendamento pelo sistema. Se for informado 0, é possível cancelar o agendamento a qualquer momento.</small></span>
                       </div>
                     </div>
@@ -265,8 +265,19 @@ $("#subtypes").val(selected_sub_type)
                           </tr>
                         </thead>
                         <tbody>
-                          <input type="hidden" name="subtypes" id="subtypes">
-                              <script>create_array_stype()</script>
+                            @foreach($services as $service)
+                            @csrf
+                              <tr>
+                                <td>
+                                  <input type="hidden" name="user_id[]" value="{{$_SESSION['id']}}" id="s_name">
+                                  <input type="hidden" name="s_name[]" value="{{$service->s_name}}" id="s_name">
+                                  <input type="checkbox" name="service_id[]" value="{{$service->id}};{{$service->s_name}}" id="service_id" <?php if($service->id == $service->s_id){echo 'checked';}?>>
+                                </td>
+                                <td>{{$service->s_name}}</td>
+                                <td>{{$service->s_value}}</td>
+                                <td>{{$service->s_serviceTime}}</td>
+                              </tr>
+                            @endforeach
                         </tbody>
                       </table>
                     </div>
@@ -276,7 +287,7 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_email" id="id_request_email" checked="">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_email" id="id_request_email" <?= isset($appointments) && $appointments->request_email == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_email"></label>Email
                               </div>
                               <small>(recomendado deixar habilitado)</small>
@@ -286,7 +297,7 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_telefone" id="id_request_telefone" checked="">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_telefone" id="id_request_telefone" <?= isset($appointments) && $appointments->request_telefone == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_telefone"></label>Telefone
                               </div>
                               <small>(recomendado deixar habilitado)</small>
@@ -306,32 +317,16 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_data_nascimento" id="id_request_data_nascimento">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_data_nascimento" id="id_request_data_nascimento" <?= isset($appointments) && $appointments->request_data_nascimento == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_data_nascimento"></label>Data de Nascimento
                               </div>
                             </div>
                           </div>
 
-                          <div class="row col-md-9 mt-2" id="age_range" style="display: none;">
-                            <p>OPCIONAL: Você pode restringir o agendamento para uma faixa de idade. Basta preencher uma idade mínima e/ou uma idade máxima para restringir os appointments. Calculamos a idade com base no dia do atendimento, e não a idade no momento do agendamento.</p>
-                            <div class="col-md-3">
-                              <div class="custom-control">
-                                <label>Idade Mínima</label>
-                                <div><input type="number" name="min_age" class="form-control" id="id_min_age"></div>
-                              </div>
-                            </div>
-                            <div class="col-md-3">
-                              <div class="custom-control">
-                                <label>Idade Máxima</label>
-                                <div><input type="number" name="max_age" class="form-control" id="id_max_age"></div>
-                              </div>
-                            </div>
-                          </div>
-                        
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_genero" id="id_request_genero">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_genero" id="id_request_genero" <?= isset($appointments) && $appointments->request_genero == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_genero"></label>Gênero
                               </div>
                             </div>
@@ -340,7 +335,7 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_profession" id="id_request_profession">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_profession" id="id_request_profession" <?= isset($appointments) && $appointments->request_profession == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_profession"></label>Profissão
                               </div>
                             </div>
@@ -349,7 +344,7 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_place_of_birth" id="id_request_place_of_birth">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_place_of_birth" id="id_request_place_of_birth" <?= isset($appointments) && $appointments->request_place_of_birth == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_place_of_birth"></label>Local de Nascimento
                               </div>
                             </div>
@@ -358,7 +353,7 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_nacionalidade" id="id_request_nacionalidade">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_nacionalidade" id="id_request_nacionalidade" <?= isset($appointments) && $appointments->request_nacionalidade == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_nacionalidade"></label>Nacionalidade
                               </div>
                             </div>
@@ -367,7 +362,7 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_doc_id" id="id_request_doc_id">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_doc_id" id="id_request_doc_id" <?= isset($appointments) && $appointments->request_doc_id == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_doc_id"></label>Documento de Identificação
                               </div>
                             </div>
@@ -376,7 +371,7 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="request_address" id="id_request_address">
+                                <input class="form-check-input" type="checkbox" role="switch" name="request_address" id="id_request_address" <?= isset($appointments) && $appointments->request_address == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_request_address"></label>Endereço
                                 <div></div>
                               </div>
@@ -386,7 +381,7 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-12 ms-2">
                               <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" name="b_solicita_add" id="id_b_solicita_add" checked="">
+                                <input class="form-check-input" type="checkbox" role="switch" name="b_solicita_add" id="id_b_solicita_add" <?= isset($appointments) && $appointments->b_solicita_add == 'on' ? 'checked' : '' ?>>
                                 <label class="form-check-label" for="id_b_solicita_add"></label>Campo de texto livre
                               </div>
                               <small>(Campo de texto livre para o usuário escrever algum comentário para o agendamento)</small>
@@ -421,7 +416,7 @@ $("#subtypes").val(selected_sub_type)
                                     Se desejar, informe um texto com instruções e informações importantes para o agendamento. Esse texto será exibido na tela de agendamento
                                   </small>
                                 </p>
-                                <textarea name="desc" cols="40" rows="5" class="form-control" id="id_desc"></textarea>
+                                <textarea name="desc" cols="40" rows="5" class="form-control" id="id_desc"><?= isset($appointments) ? $appointments->desc : '' ?></textarea>
                               </div>
 
                             </div>
@@ -459,7 +454,7 @@ $("#subtypes").val(selected_sub_type)
                     <div class="col-md-12 ms-2"> 
                       <div class="form-group">
                         <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" role="switch" name="b_notify_email" id="id_b_notify_email" checked="">
+                          <input class="form-check-input" type="checkbox" role="switch" name="b_notify_email" id="id_b_notify_email" <?= isset($appointments) && $appointments->b_notify_email == 'on' ? 'checked' : '' ?>>
                           <label class="form-check-label" for="id_b_notify_email"><label for="id_b_notify_email">Notificação de novo agendamento por email:</label></label>
                         </div>
                       </div>
@@ -467,7 +462,7 @@ $("#subtypes").val(selected_sub_type)
                         <div class="col-md-6 ms-2">
                           <div class="form-group">
                             <label><label for="id_email_cc">Enviar Notificações por Email para:</label></label>
-                            <input type="text" name="email_cc" value="guifurchi65@gmail.com" maxlength="200" class="form-control" id="id_email_cc">
+                            <input type="text" name="email_cc" value="<?= isset($appointments) ? $appointments->email_cc : '' ?>" maxlength="200" class="form-control" id="id_email_cc">
                             <small>Enviar notificações por e-mail. Para incluir dois endereços, use o separador de vírgula</small>
                           </div>
                         </div>
@@ -524,7 +519,7 @@ $("#subtypes").val(selected_sub_type)
                             <div class="col-md-12 ms-2">
                               <div class="form-group">
                                 <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" role="switch" name="national_holiday" id="id_national_holiday" checked="">
+                                  <input class="form-check-input" type="checkbox" role="switch" name="national_holiday" id="id_national_holiday" <?= isset($appointments) && $appointments->national_holiday == 'on' ? 'checked' : '' ?>>
                                   <label class="form-check-label" for="id_national_holiday">Bloquear a agenda em feriados nacionais</label>
                                 </div>
                               </div>
@@ -535,7 +530,7 @@ $("#subtypes").val(selected_sub_type)
                             <div class="col-md-12 ms-2">
                               <div class="form-group">
                                 <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" role="switch" name="state_holiday" id="id_state_holiday" checked="">
+                                  <input class="form-check-input" type="checkbox" role="switch" name="state_holiday" id="id_state_holiday" <?= isset($appointments) && $appointments->state_holiday == 'on' ? 'checked' : '' ?>>
                                   <label class="form-check-label" for="id_state_holiday">Bloquear a agenda em feriados estaduais.</label>
                                 </div>
                                 <small >Para o correto funcionamento dessa função, verifique se o seu endereço cadastrado está correto.</small>
@@ -548,7 +543,7 @@ $("#subtypes").val(selected_sub_type)
                               <div class="col-md-12 ms-2">
                                 <div class="form-group">
                                   <label>Duração do atendimento (em minutos)</label>
-                                  <input type="number" id="time_between" class="form-control col-md-1" min="5" name="time_between" value="">
+                                  <input type="number" id="time_between" class="form-control col-md-1" min="5" name="time_between" value="<?= isset($appointments) ? $appointments->time_between : '' ?>">
                                   <span class="help-block"><small>Se o atendimento dura 50min e você quer 10min de intervalo até o próximo atendimento, preencha esse campo com 60min.</small></span>
                                 </div>
                             </div>
@@ -581,7 +576,7 @@ $("#subtypes").val(selected_sub_type)
                             <div class="col-md-12 ms-2">
                               <div class="form-group">
                                 <label>Antecedência mínima para agendamento (em horas)</label>
-                                <input type="number" id="time_before" class="form-control col-md-1" name="time_before" min="0" value="" required="True">
+                                <input type="number" id="time_before" class="form-control col-md-1" name="time_before" min="0" value="<?= isset($appointments) ? $appointments->time_before : '' ?>" required="True">
                                 <!--<span class="help-block"><small>Exemplo: se você preencher 24h, só vai ser disponibilizado horário de atendimento para o dia seguinte. Se você preencher 0 (zero), o agendamento fica disponível até 15min antes do horário do atendimento</small></span>-->
                               </div>
                             </div>
@@ -591,7 +586,7 @@ $("#subtypes").val(selected_sub_type)
                             <div class="col-md-12 ms-2">
                               <div class="form-group">
                                 <label>Antecedência máxima para agendamento (em dias)</label>
-                                <input type="number" id="time_after" class="form-control col-md-1" name="time_after" max="90" value="" required="True">
+                                <input type="number" id="time_after" class="form-control col-md-1" name="time_after" max="90" value="<?= isset($appointments) ? $appointments->time_after : '' ?>" required="True">
                                 <span class="help-block"><small>Exemplo: se você preencher esse campo com 10 dias, só vai ser disponibilizado horários até 10 dias pra frente.</small></span>
                               </div>
                             </div>
@@ -601,7 +596,7 @@ $("#subtypes").val(selected_sub_type)
                             <div class="col-md-12 ms-2">
                               <div class="form-group">
                                 <label>Horário de Abertura da Agenda</label>
-                                <input type="number" id="time_after_hour" class="form-control col-md-1" name="time_after_hour" max="24" value="" required="True">
+                                <input type="number" id="time_after_hour" class="form-control col-md-1" name="time_after_hour" max="24" value="<?= isset($appointments) ? $appointments->time_after_hour : '' ?>" required="True">
                                 <span class="help-block"><small>Exemplo: se você deseja abrir um novo dia da agenda diariamente a partir das 10h, preencha o valor 10 neste campo. O padrão é abrir um novo dia da agenda as 0h. Preencha um valor entre 0 e 24;</small></span>
                               </div>
                             </div>
@@ -661,7 +656,13 @@ $("#subtypes").val(selected_sub_type)
                           </div>-->
 
                           <h4 class="form-section"><i class="icon-calendar"></i>Horários de Atendimento</h4>
-                          <span class="help-block"><small>Configure os horários de atendimento. Informe a hora incial e a hora final.</small></span>
+                          <span class="help-block">
+                            <small>Configure os horários de atendimento. Informe a hora incial e a hora final.</small>
+                            <span class="help-block"><small>Você pode clicar no botão <i class="icon-plus-sign"></i> para incluir um novo período de atendimento. <br>
+                            Por exemplo:  você pode criar um bloco das 8h as 12h e outro bloco das 14h as 18h.<br><br></small>
+                          </span>
+
+                          </span>
                           <h4 class="form-section">
                             <i class="icon-clock"></i>
                             Segunda-feira
@@ -674,28 +675,39 @@ $("#subtypes").val(selected_sub_type)
                             </span>
 
                           </h4>
-                          <span class="help-block"><small>Você pode clicar no botão <i class="icon-plus-sign"></i> acima para incluir um novo período de atendimento. Por exemplo: 
-                            você pode criar um bloco das 8h as 12h e outro bloco das 14h as 18h.<br><br></small>
-                          </span>
-
 
                           <div class="row mt-2">
                             <div class="col-md-3">
                               <div class="form-group" id="monday_initial">
-
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_monday{{$i}}">Hora incial</label>
+                                <input type="time" id-fixed='monday' class="form-control" value="{{$hour->initial_time_monday}}" name="initial_time_monday[{{$i}}]" id="initial_time_monday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>                            
                             </div>
 
                             <div class="col-md-3">
                               <div class="form-group" id="monday_end">
-
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_monday{{$i}}">Hora final</label>
+                                <input type="time" class="form-control" value="{{$hour->end_time_monday}}" name="end_time_monday[{{$i}}]" id="end_time_monday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
-                            </div>
-                            
+                                                        
                             <div class="col-md-3">
                               <div class="form-group" id="monday_amount">
-
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_monday{{$i}}">Número de Pessoas por Horário</label>
+                                <input type="number" min="{{$i}}" class="form-control" value="{{$hour->amount_monday}}" name="amount_monday[{{$i}}]" id="amount_monday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
                           </div>
 
@@ -720,17 +732,32 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-4">
                               <div class="form-group" id="tuesday_initial">
-
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_tuesday{{$i}}">Hora incial</label>
+                                <input type="time" id-fixed='tuesday' class="form-control" value="{{$hour->initial_time_tuesday}}" name="initial_time_tuesday[{{$i}}]" id="initial_time_tuesday{{$i}}">
+                                @endforeach
+                              @endif
                             </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group" id="tuesday_end">
-
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_tuesday{{$i}}">Hora final</label>
+                                <input type="time" class="form-control" value="{{$hour->end_time_tuesday}}" name="end_time_tuesday[{{$i}}]" id="end_time_tuesday{{$i}}">
+                                @endforeach
+                              @endif
                             </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group" id="tuesday_amount">
-
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_tuesday{{$i}}">Número de Pessoas por Horário</label>
+                                <input type="number" min="0" class="form-control" value="{{$hour->amount_tuesday}}" name="amount_tuesday[{{$i}}]" id="amount_tuesday{{$i}}">
+                                @endforeach
+                              @endif
                               </div>
                             </div>
                           </div>
@@ -748,21 +775,36 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-4">
                               <div class="form-group" id="wednesday_initial">
-
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_wednesday{{$i}}">Hora incial</label>
+                                <input type="time" id-fixed='wednesday' class="form-control" value="{{$hour->initial_time_wednesday}}" name="initial_time_wednesday[{{$i}}]" id="initial_time_wednesday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group" id="wednesday_end">
-
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_wednesday{{$i}}">Hora final</label>
+                                <input type="time" class="form-control" value="{{$hour->end_time_wednesday}}" name="end_time_wednesday[{{$i}}]" id="end_time_wednesday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group" id="wednesday_amount">
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_wednesday{{$i}}">Número de Pessoas por Horário</label>
+                                <input type="number" min="0" class="form-control" value="{{$hour->amount_wednesday}}" name="amount_wednesday[{{$i}}]" id="amount_wednesday{{$i}}">
+                                @endforeach
+                              @endif
 
-                            </div>
+                              </div>
                             </div>
                           </div>
-
                           <h4 class="form-section">
                             <i class="icon-clock"></i>Quinta-feira
                             <span class="add_time" onclick="add_new_time('thursday')">
@@ -776,21 +818,36 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-4">
                               <div class="form-group" id="thursday_initial">
-
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_thursday{{$i}}">Hora incial</label>
+                                <input type="time" id-fixed='thursday' class="form-control" value="{{$hour->initial_time_thursday}}" name="initial_time_thursday[{{$i}}]" id="initial_time_thursday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group" id="thursday_end">
-
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_thursday{{$i}}">Hora final</label>
+                                <input type="time" class="form-control" value="{{$hour->end_time_thursday}}" name="end_time_thursday[{{$i}}]" id="end_time_thursday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group" id="thursday_amount">
-
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_thursday{{$i}}">Número de Pessoas por Horário</label>
+                                <input type="number" min="0" class="form-control" value="{{$hour->amount_thursday}}" name="amount_thursday[{{$i}}]" id="amount_thursday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
                           </div>
-
+                          
                           <h4 class="form-section">
                             <i class="icon-clock"></i>Sexta-feira
                             <span class="add_time" onclick="add_new_time('friday')">
@@ -804,14 +861,32 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-4">
                               <div class="form-group" id="friday_initial">
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_friday{{$i}}">Hora incial</label>
+                                <input type="time" id-fixed='friday' class="form-control" value="{{$hour->initial_time_friday}}" name="initial_time_friday[{{$i}}]" id="initial_time_friday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group" id="friday_end">
-                            </div>
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_friday{{$i}}">Hora final</label>
+                                <input type="time" class="form-control" value="{{$hour->end_time_friday}}" name="end_time_friday[{{$i}}]" id="end_time_friday{{$i}}">
+                                @endforeach
+                              @endif
+                              </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group" id="friday_amount">
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_friday{{$i}}">Número de Pessoas por Horário</label>
+                                <input type="number" min="0" class="form-control" value="{{$hour->amount_friday}}" name="amount_friday[{{$i}}]" id="amount_friday{{$i}}">
+                                @endforeach
+                              @endif
                               </div>
                             </div>
                           </div>
@@ -829,18 +904,36 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-4">
                               <div class="form-group" id="saturday_initial">
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_saturday{{$i}}">Hora incial</label>
+                                <input type="time" id-fixed='saturday' class="form-control" value="{{$hour->initial_time_saturday}}" name="initial_time_saturday[{{$i}}]" id="initial_time_saturday{{$i}}">
+                                @endforeach
+                              @endif
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group" id="saturday_end">
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_saturday{{$i}}">Hora final</label>
+                                <input type="time" class="form-control" value="{{$hour->end_time_saturday}}" name="end_time_saturday[{{$i}}]" id="end_time_saturday{{$i}}">
+                                @endforeach
+                              @endif
                               </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group" id="saturday_amount">
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_saturday{{$i}}">Número de Pessoas por Horário</label>
+                                <input type="number" min="0" class="form-control" value="{{$hour->amount_saturday}}" name="amount_saturday[{{$i}}]" id="amount_saturday{{$i}}">
+                                @endforeach
+                              @endif
                               </div>
                             </div>
                           </div>
-
+                          
                           <h4 class="form-section">
                             <i class="icon-clock"></i>Domingo
                             <span class="add_time" onclick="add_new_time('sunday')">
@@ -854,17 +947,35 @@ $("#subtypes").val(selected_sub_type)
                           <div class="row mt-2">
                             <div class="col-md-4">
                               <div class="form-group" id="sunday_initial">
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_sunday{{$i}}">Hora incial</label>
+                                <input type="time" id-fixed='sunday' class="form-control" value="{{$hour->initial_time_sunday}}" name="initial_time_sunday[{{$i}}]" id="initial_time_sunday{{$i}}">
+                                @endforeach
+                              @endif
                               </div>
                             </div>
                             <div class="col-md-4">
                               <div class="form-group" id="sunday_end">
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_sunday{{$i}}">Hora final</label>
+                                <input type="time" class="form-control" value="{{$hour->end_time_sunday}}" name="end_time_sunday[{{$i}}]" id="end_time_sunday{{$i}}">
+                                @endforeach
+                              @endif
                               </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group" id="sunday_amount">
+                              @if(isset($availableOpenningHours))
+                                @foreach($availableOpenningHours as $i => $hour)
+                                <label class="label_sunday{{$i}}">Número de Pessoas por Horário</label>
+                                <input type="number" min="0" class="form-control" value="{{$hour->amount_sunday}}" name="amount_sunday[{{$i}}]" id="amount_sunday{{$i}}">
+                              @endforeach
+                              @endif
                               </div>
                             </div>
-                          </div>
+                          </div>                          
                           <!--
                         <h4 class="form-section"><i class="icon-list-alt"></i>Limites de appointments</h4>
                           <span class="help-block"><small>Configure um limite de agendamento para essa agenda. Para o limite funcionar, os 4 parâmetros abaixo devem ser definidos. Para configurar limites gerais, acesse a tela de <a href="/appointments/limites/">Limites de Agendamento</a><br><br></small>
@@ -940,8 +1051,7 @@ $("#subtypes").val(selected_sub_type)
                           <small>Escolha um endereço de atendimento cadastrado. Você pode configurar os endereços de atendimento na página das <a href="/users/unidades_atendimento/">unidades de atendimento</a>
                           <br><br></small>
                         </span>
-                        <button type="submit" class="btn btn-raised btn-raised btn-success" id="submit"><i class="fa fa-check-square-o"></i>Salvar Configuração</button>
-                        <button class="btn btn-raised btn-raised btn-info" formaction="/appointments/configurar_agenda/2226?reprocess=true" formmethod="post">Salvar e Atualizar Horários</button>
+                        <button type="submit" class="btn btn-raised btn-raised btn-success" id="submit"><i class="fa fa-check-square-o"></i> Salvar Configuração</button>
                         <button type="submit" class="btn btn-outline-secondary" id="submit"><a href="/appointments">Voltar</a></button>
                     </div>
                   </div>

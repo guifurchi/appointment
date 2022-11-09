@@ -92,20 +92,26 @@ $(document).ready(function() {
   });
 });
 
+$(document).ready(function() {
+    $('#monday_initial').click(()=>{
+        var monday_count = $("[id-fixed=monday]").length;
+        // console.log(monday_count)
+        })
+});
 
 
-var monday_count = 0;
-var tuesday_count = 0;
-var wednesday_count = 0;
-var thursday_count = 0;
-var friday_count = 0;
-var saturday_count = 0;
-var sunday_count = 0;
+
+var monday_count = $("[id-fixed=monday]").length;
+var tuesday_count = $("[id-fixed=tuesday]").length;
+var wednesday_count = $("[id-fixed=wednesday]").length;
+var thursday_count = $("[id-fixed=thursday]").length;
+var friday_count = $("[id-fixed=friday]").length;
+var saturday_count = $("[id-fixed=saturday]").length;
+var sunday_count = $("[id-fixed=sunday]").length;
 var person_count = 0;
 
 function remove_time(day){
 
-    console.log(day)
     switch(day){
         case "monday":
 
@@ -113,6 +119,8 @@ function remove_time(day){
             if(monday_count<0){
                 monday_count=0;
             }
+            console.log(monday_count)
+
             $('#initial_time_monday'+monday_count).remove();
             $('#end_time_monday'+monday_count).remove();
             $('#amount_monday'+monday_count).remove();
@@ -199,19 +207,17 @@ function remove_time(day){
         break;
     }
 
-
-
 }
 
 
 function add_new_time(day){
-    console.log(day)
+    
     switch(day){
         case "monday":
 
-            $('#monday_initial').append("<label class=label_monday"+monday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_monday"+monday_count+" id=initial_time_monday"+monday_count+">");
-            $('#monday_end').append("<label class=label_monday"+monday_count+">Hora final</label><input type='time' class='form-control' name=end_time_monday"+monday_count+" id=end_time_monday"+monday_count+">");
-            $('#monday_amount').append("<label class=label_monday"+monday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_monday"+monday_count+" id=amount_monday"+monday_count+">");
+            $('#monday_initial').append("<label id-fixed='monday' class=label_monday"+monday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_monday"+"["+monday_count+"]"+" id=initial_time_monday"+monday_count+">");
+            $('#monday_end').append("<label class=label_monday"+monday_count+">Hora final</label><input type='time' class='form-control' name=end_time_monday"+"["+monday_count+"]"+" id=end_time_monday"+monday_count+">");
+            $('#monday_amount').append("<label class=label_monday"+monday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_monday"+"["+monday_count+"]"+" id=amount_monday"+monday_count+">");
             $('#monday_number_times').val(monday_count);
             monday_count += 1
 
@@ -219,57 +225,57 @@ function add_new_time(day){
         break;
 
         case "tuesday":
-            $('#tuesday_initial').append("<label class=label_tuesday"+tuesday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_tuesday"+tuesday_count+" id=initial_time_tuesday"+tuesday_count+">");
-            $('#tuesday_end').append("<label class=label_tuesday"+tuesday_count+">Hora final</label><input type='time' class='form-control' name=end_time_tuesday"+tuesday_count+" id=end_time_tuesday"+tuesday_count+">");
-            $('#tuesday_amount').append("<label class=label_tuesday"+tuesday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_tuesday"+tuesday_count+" id=amount_tuesday"+tuesday_count+">");
+            $('#tuesday_initial').append("<label id-fixed='tuesday'  class=label_tuesday"+tuesday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_tuesday"+"["+tuesday_count+"]"+" id=initial_time_tuesday"+tuesday_count+">");
+            $('#tuesday_end').append("<label class=label_tuesday"+tuesday_count+">Hora final</label><input type='time' class='form-control' name=end_time_tuesday"+"["+tuesday_count+"]"+" id=end_time_tuesday"+tuesday_count+">");
+            $('#tuesday_amount').append("<label class=label_tuesday"+tuesday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_tuesday"+"["+tuesday_count+"]"+" id=amount_tuesday"+tuesday_count+">");
             $('#tuesday_number_times').val(tuesday_count);
             tuesday_count += 1
         break;
 
         case "wednesday":
-            $('#wednesday_initial').append("<label class=label_wednesday"+wednesday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_wednesday"+wednesday_count+" id=initial_time_wednesday"+wednesday_count+">");
-            $('#wednesday_end').append("<label class=label_wednesday"+wednesday_count+">Hora final</label><input type='time' class='form-control' name=end_time_wednesday"+wednesday_count+" id=end_time_wednesday"+wednesday_count+">");
-            $('#wednesday_amount').append("<label class=label_wednesday"+wednesday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_wednesday"+wednesday_count+" id=amount_wednesday"+wednesday_count+">");
+            $('#wednesday_initial').append("<label id-fixed='wednesday' class=label_wednesday"+wednesday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_wednesday"+"["+wednesday_count+"]"+" id=initial_time_wednesday"+wednesday_count+">");
+            $('#wednesday_end').append("<label class=label_wednesday"+wednesday_count+">Hora final</label><input type='time' class='form-control' name=end_time_wednesday"+"["+wednesday_count+"]"+" id=end_time_wednesday"+wednesday_count+">");
+            $('#wednesday_amount').append("<label class=label_wednesday"+wednesday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_wednesday"+"["+wednesday_count+"]"+" id=amount_wednesday"+wednesday_count+">");
             $('#wednesday_number_times').val(wednesday_count);
             wednesday_count += 1
         break;
 
         case "thursday":
 
-            $('#thursday_initial').append("<label class=label_thursday"+thursday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_thursday"+thursday_count+" id=initial_time_thursday"+thursday_count+">");
-            $('#thursday_end').append("<label class=label_thursday"+thursday_count+">Hora final</label><input type='time' class='form-control' name=end_time_thursday"+thursday_count+" id=end_time_thursday"+thursday_count+">");
-            $('#thursday_amount').append("<label class=label_thursday"+thursday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_thursday"+thursday_count+" id=amount_thursday"+thursday_count+">");
+            $('#thursday_initial').append("<label id-fixed='thursday' class=label_thursday"+thursday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_thursday"+"["+thursday_count+"]"+" id=initial_time_thursday"+thursday_count+">");
+            $('#thursday_end').append("<label class=label_thursday"+thursday_count+">Hora final</label><input type='time' class='form-control' name=end_time_thursday"+"["+thursday_count+"]"+" id=end_time_thursday"+thursday_count+">");
+            $('#thursday_amount').append("<label class=label_thursday"+thursday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_thursday"+"["+thursday_count+"]"+" id=amount_thursday"+thursday_count+">");
             $('#thursday_number_times').val(thursday_count);
             thursday_count += 1
         break;
 
         case "friday":
 
-            $('#friday_initial').append("<label class=label_friday"+friday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_friday"+friday_count+" id=initial_time_friday"+friday_count+">");
-            $('#friday_end').append("<label class=label_friday"+friday_count+">Hora final</label><input type='time' class='form-control' name=end_time_friday"+friday_count+" id=end_time_friday"+friday_count+">");
-            $('#friday_amount').append("<label class=label_friday"+friday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_friday"+friday_count+" id=amount_friday"+friday_count+">");
+            $('#friday_initial').append("<label id-fixed='friday' class=label_friday"+friday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_friday"+"["+friday_count+"]"+" id=initial_time_friday"+friday_count+">");
+            $('#friday_end').append("<label class=label_friday"+friday_count+">Hora final</label><input type='time' class='form-control' name=end_time_friday"+"["+friday_count+"]"+" id=end_time_friday"+friday_count+">");
+            $('#friday_amount').append("<label class=label_friday"+friday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_friday"+"["+friday_count+"]"+" id=amount_friday"+friday_count+">");
             $('#friday_number_times').val(friday_count);
             friday_count += 1
         break;
 
         case "saturday":
 
-            $('#saturday_initial').append("<label class=label_saturday"+saturday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_saturday"+saturday_count+" id=initial_time_saturday"+saturday_count+">");
-            $('#saturday_end').append("<label class=label_saturday"+saturday_count+">Hora final</label><input type='time' class='form-control' name=end_time_saturday"+saturday_count+" id=end_time_saturday"+saturday_count+">");
-            $('#saturday_amount').append("<label class=label_saturday"+saturday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_saturday"+saturday_count+" id=amount_saturday"+saturday_count+">");
+            $('#saturday_initial').append("<label id-fixed='saturday' class=label_saturday"+saturday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_saturday"+"["+saturday_count+"]"+" id=initial_time_saturday"+saturday_count+">");
+            $('#saturday_end').append("<label class=label_saturday"+saturday_count+">Hora final</label><input type='time' class='form-control' name=end_time_saturday"+"["+saturday_count+"]"+" id=end_time_saturday"+saturday_count+">");
+            $('#saturday_amount').append("<label class=label_saturday"+saturday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_saturday"+"["+saturday_count+"]"+" id=amount_saturday"+saturday_count+">");
             $('#saturday_number_times').val(saturday_count);
             saturday_count += 1
         break;
 
         case "sunday":
 
-            $('#sunday_initial').append("<label class=label_sunday"+sunday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_sunday"+sunday_count+" id=initial_time_sunday"+sunday_count+">");;
-            $('#sunday_end').append("<label class=label_sunday"+sunday_count+">Hora final</label><input type='time' class='form-control' name=end_time_sunday"+sunday_count+" id=end_time_sunday"+sunday_count+">");
-            $('#sunday_amount').append("<label class=label_sunday"+sunday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_sunday"+sunday_count+" id=amount_sunday"+sunday_count+">");
+            $('#sunday_initial').append("<label id-fixed='sunday' class=label_sunday"+sunday_count+">Hora incial</label><input type='time' class='form-control' name=initial_time_sunday"+"["+sunday_count+"]"+" id=initial_time_sunday"+sunday_count+">");;
+            $('#sunday_end').append("<label class=label_sunday"+sunday_count+">Hora final</label><input type='time' class='form-control' name=end_time_sunday"+"["+sunday_count+"]"+" id=end_time_sunday"+sunday_count+">");
+            $('#sunday_amount').append("<label class=label_sunday"+sunday_count+">Número de Pessoas por Horário</label><input type='number' min=0 class='form-control' name=amount_sunday"+"["+sunday_count+"]"+" id=amount_sunday"+sunday_count+">");
             $('#sunday_number_times').val(sunday_count);
             sunday_count += 1
         break;
-    }
+    }   
 }
 
 
@@ -311,10 +317,12 @@ function copy_to_alldays(start_day,end_day){
         }
 
         for(var count=0;count<monday_count;count++){
-
+            
              initial_time_monday = $('#initial_time_monday'+count).val();
              end_time_monday = $('#end_time_monday'+count).val();
              amount_monday = $('#amount_monday'+count).val();
+
+             console.log(amount_monday)
 
              add_new_time('tuesday')
              $('#initial_time_tuesday'+count).val(initial_time_monday);
